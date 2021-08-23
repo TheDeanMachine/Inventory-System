@@ -73,7 +73,7 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="partFormToggle" />
                      </toggleGroup></RadioButton>
-                  <RadioButton fx:id="outSourcedToggle" mnemonicParsing="false" prefHeight="17.0" prefWidth="89.0" text="Outsourced " toggleGroup="$partFormToggle" />
+                  <RadioButton fx:id="outSourcedToggle" mnemonicParsing="false" onAction="#onActionDisplayOutsourcedPartForm" prefHeight="17.0" prefWidth="89.0" text="Outsourced " toggleGroup="$partFormToggle" />
                </children>
             </HBox>
             <Line endX="109.0" layoutX="188.0" layoutY="63.0" startX="-156.0" strokeWidth="2.0" />

@@ -99,8 +99,11 @@ public class MainScreenController {
     }
 
     @FXML
-    void onActionDisplayModifyPartForm(ActionEvent event) {
-
+    void onActionDisplayModifyPartForm(ActionEvent event) throws IOException {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/View/ModifyPartFormInHouse.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
@@ -120,13 +123,19 @@ public class MainScreenController {
     }
 
     @FXML
-    void onActionDisplayModifyProductForm(ActionEvent event) {
-
+    void onActionDisplayModifyProductForm(ActionEvent event) throws IOException {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/View/ModifyProductForm.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
-    void onActionDisplayAddProductForm(ActionEvent event) {
-
+    void onActionDisplayAddProductForm(ActionEvent event) throws IOException {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/View/AddProductForm.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 

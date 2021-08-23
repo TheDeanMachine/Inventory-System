@@ -69,7 +69,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="inHouseToggle" mnemonicParsing="false" prefHeight="17.0" prefWidth="82.0" text="In-House">
+                  <RadioButton fx:id="inHouseToggle" mnemonicParsing="false" onAction="#onActionDisplayInHousePartFrom" prefHeight="17.0" prefWidth="82.0" text="In-House">
                      <toggleGroup>
                         <ToggleGroup fx:id="partFormToggle" />
                      </toggleGroup></RadioButton>

@@ -56,7 +56,7 @@ public class AddPartFormOutsourcedController {
     private Button addInventoryButton;
 
 
-    //// Part Form Methods ///
+    //// Part form methods for switching screens ///
     @FXML
      void onActionAddDisplayMainScreen(ActionEvent event) throws IOException {
         Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
