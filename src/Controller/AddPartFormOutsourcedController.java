@@ -10,9 +10,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
-public class AddPartFormInHouseController {
+public class AddPartFormOutsourcedController {
 
     //// Part Form Fields ////
     @FXML
@@ -34,18 +35,18 @@ public class AddPartFormInHouseController {
     private TextField partMaxTxt;
 
     @FXML
-    private TextField machineIdTxt;
-
+    private TextField companyTxt;
 
     //// Toggle Group ////
     @FXML
     private ToggleGroup partFormToggle;
 
     @FXML
-    private RadioButton outSourcedToggle;
+    private RadioButton inHouseToggle;
 
     @FXML
-    private RadioButton inHouseToggle;
+    private RadioButton outSourcedToggle;
+
 
     //// Buttons ////
     @FXML
@@ -55,9 +56,9 @@ public class AddPartFormInHouseController {
     private Button addInventoryButton;
 
 
-    //// Part Form Methods ////
+    //// Part Form Methods ///
     @FXML
-    void onActionAddDisplayMainScreen(ActionEvent event) throws IOException {
+     void onActionAddDisplayMainScreen(ActionEvent event) throws IOException {
         Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(root));
@@ -73,11 +74,12 @@ public class AddPartFormInHouseController {
     }
 
     @FXML
-    void onActionDisplayOutsourcedPartForm(ActionEvent event) throws IOException {
+    void onActionDisplayInHousePartForm(ActionEvent event) throws IOException {
         Stage stage = (Stage)((RadioButton)event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/View/AddPartFormOutsourced.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/AddPartFormInHouse.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
 
 }
+
