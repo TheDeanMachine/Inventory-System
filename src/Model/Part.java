@@ -1,24 +1,19 @@
 package Model;
-
 /**
  * Supplied class Part.java
  */
 
 /**
- * @author Vadym Feskin
+ *
+ * @author Place Your Name Here
  */
-
 public abstract class Part {
-
-    // Fields
     private int id;
     private String name;
     private double price;
     private int stock;
     private int min;
     private int max;
-
-    // Constructor
     public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;

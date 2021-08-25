@@ -74,10 +74,10 @@ public class AddProductFormController extends SuperController {
     private Button removePartButton;
 
     @FXML
-    private Button cancelButton;
+    public Button cancelButton;
 
     @FXML
-    private Button addInventoryButton;
+    public Button addInventoryButton;
 
     /// Product Form TextArea Fields fx:id ///
     @FXML
@@ -86,13 +86,13 @@ public class AddProductFormController extends SuperController {
 
     /// Product Form change screen methods
     @FXML
-    void onActionAddDisplayMainScreen(ActionEvent event) throws IOException {
-        displayNewScreen(event, "/View/MainScreen.fxml");
+    void onActionAddDisplayMainScreen() throws IOException {
+       displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
     @FXML
-    void onActionCancelDisplayMainScreen(ActionEvent event) throws IOException {
-        displayNewScreen(event, "/View/MainScreen.fxml");
+    void onActionCancelDisplayMainScreen() throws IOException {
+       displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
     /// Product Form Add/Remove Associated part methods

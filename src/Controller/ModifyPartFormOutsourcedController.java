@@ -45,26 +45,26 @@ public class ModifyPartFormOutsourcedController extends SuperController {
 
     //// Buttons ////
     @FXML
-    private Button cancelButton;
+    public Button cancelButton;
 
     @FXML
-    private Button saveButton;
+    public Button saveButton;
 
 
     //// Part form methods for switching screens ////
     @FXML
     void onActionDisplayInHousePartFrom(ActionEvent event) throws IOException {
-        displayNewToggleGroup(event, "/View/ModifyPartFormInHouse.fxml");
+        displayNewToggleGroup(event, "/View/ModifyPartFormInHouse.fxml", "Part Form In-House");
     }
 
     @FXML
-    void onActionCancelDisplayMainScreen(ActionEvent event) throws IOException {
-        displayNewScreen(event, "/View/MainScreen.fxml");
+    void onActionCancelDisplayMainScreen() throws IOException {
+        displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
     @FXML
-    void onActionSaveDisplayMainScreen(ActionEvent event) throws IOException {
-        displayNewScreen(event, "/View/MainScreen.fxml");
+    void onActionSaveDisplayMainScreen() throws IOException {
+        displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
 }

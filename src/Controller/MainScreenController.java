@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.io.IOException;
 
-public class MainScreenController {
+public class MainScreenController extends SuperController {
 
     ///// Parts Screen Fields /////
 
@@ -41,14 +41,20 @@ public class MainScreenController {
     @FXML
     private TableColumn<?, ?> partPriceColumn;
 
+    /// Buttons
+
     @FXML
     private Button deletePartButton;
 
     @FXML
-    private Button modifyPartButton;
+    public Button modifyPartButton;
 
     @FXML
     private Button addPartButton;
+
+    public Button getAddPartButton(){
+        return addPartButton;
+    }
 
 
     //// Product Screen Fields ////
@@ -75,13 +81,12 @@ public class MainScreenController {
     private Button deleteProductButton;
 
     @FXML
-    private Button modifyProductButton;
+    public Button modifyProductButton;
 
     @FXML
-    private Button addProductButton;
+    public Button addProductButton;
 
     /// Exit Button ///
-
     @FXML
     private Button exitButton;
 
@@ -92,50 +97,36 @@ public class MainScreenController {
 
 
     //// Part Screen Methods ////
-
     @FXML
     void onActionDeletePart(ActionEvent event) {
 
     }
 
     @FXML
-    void onActionDisplayModifyPartForm(ActionEvent event) throws IOException {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/View/ModifyPartFormInHouse.fxml"));
-        stage.setScene(new Scene(root));
-        stage.show();
+    void onActionDisplayModifyPartForm() throws IOException {
+        displayNewScreen(modifyPartButton, "/View/ModifyPartFormInHouse.fxml", "Modify Part Form");
     }
 
     @FXML
-    void onActionDisplayAddPartForm(ActionEvent event) throws IOException {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/View/AddPartFormInHouse.fxml"));
-        stage.setScene(new Scene(root));
-        stage.show();
+    void onActionDisplayAddPartForm() throws IOException {
+        displayNewScreen(getAddPartButton(), "/View/AddPartForm.fxml", "Add Part Form");
     }
 
 
     //// Product Methods ////
-
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
 
     }
 
     @FXML
-    void onActionDisplayModifyProductForm(ActionEvent event) throws IOException {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/View/ModifyProductForm.fxml"));
-        stage.setScene(new Scene(root));
-        stage.show();
+    void onActionDisplayModifyProductForm() throws IOException {
+        displayNewScreen(modifyProductButton, "/View/ModifyProductForm.fxml", "Product Form");
     }
 
     @FXML
-    void onActionDisplayAddProductForm(ActionEvent event) throws IOException {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/View/AddProductForm.fxml"));
-        stage.setScene(new Scene(root));
-        stage.show();
+    void onActionDisplayAddProductForm() throws IOException {
+       displayNewScreen(addProductButton, "/View/AddProductForm.fxml", "Product Form");
     }
 
 
