@@ -53,9 +53,9 @@
                   </Button>
                </children>
             </GridPane>
-            <HBox layoutX="31.0" layoutY="23.0" spacing="20.0">
+            <HBox alignment="CENTER" layoutX="31.0" layoutY="23.0" prefHeight="20.0" prefWidth="267.0" spacing="20.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="61.0" text="Add Part">
+                  <Label prefHeight="20.0" prefWidth="74.0" text="Select Type">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -64,7 +64,7 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="partFormToggle" />
                      </toggleGroup></RadioButton>
-                  <RadioButton fx:id="outSourcedRadioButton" mnemonicParsing="false" onAction="#onActionOutsourcedRadioButton" prefHeight="17.0" prefWidth="89.0" text="Outsourced " toggleGroup="$partFormToggle" />
+                  <RadioButton fx:id="outSourcedRadioButton" mnemonicParsing="false" onAction="#onActionOutsourcedRadioButton" prefHeight="17.0" prefWidth="94.0" text="Outsourced " toggleGroup="$partFormToggle" />
                </children>
             </HBox>
             <Line endX="109.0" layoutX="188.0" layoutY="63.0" startX="-156.0" strokeWidth="2.0" />

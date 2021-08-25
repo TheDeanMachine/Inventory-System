@@ -4,18 +4,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ModifyPartFormInHouseController extends SuperController{
+public class ModifyPartFormController extends SuperController {
 
-    //// Parts Form Fields ////
+    /// Part Form Text Fields fx:id ///
     @FXML
     private TextField parIdTxt;
 
@@ -37,7 +34,10 @@ public class ModifyPartFormInHouseController extends SuperController{
     @FXML
     private TextField machineIdTxt;
 
-    /// Toggle Group ///
+    @FXML
+    private Label machineCompanyLabel;
+
+    /// Part Form Toggle Group Fields fx:id ///
     @FXML
     private ToggleGroup partFormToggle;
 
@@ -47,7 +47,7 @@ public class ModifyPartFormInHouseController extends SuperController{
     @FXML
     private RadioButton outSourcedToggle;
 
-    //// Buttons ////
+    /// Part Form Button Fields fx:id ///
     @FXML
     public Button cancelButton;
 
@@ -57,11 +57,6 @@ public class ModifyPartFormInHouseController extends SuperController{
 
     //// Part form methods for switching screens ////
     @FXML
-    void onActionDisplayOutsourcedPartForm(ActionEvent event) throws IOException {
-      displayNewToggleGroup(event, "/View/ModifyPartFormOutsourced.fxml", "Part Form Outsourced");
-    }
-
-    @FXML
     void onActionCancelDisplayMainScreen() throws IOException {
         displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
@@ -69,6 +64,17 @@ public class ModifyPartFormInHouseController extends SuperController{
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
+    }
+
+    //// Part form methods for toggling between machine/company label
+    @FXML
+    void onActionInHouseRadioButton(ActionEvent event) {
+        machineCompanyLabel.setText("Machine ID");
+    }
+
+    @FXML
+    void onActionOutsourcedRadioButton(ActionEvent event) {
+        machineCompanyLabel.setText("Company Name");
     }
 
 }

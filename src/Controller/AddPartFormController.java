@@ -8,14 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddPartFormController extends SuperController implements Initializable {
 
-    //// Part Form Fields ////
+    /// Part Form Text Fields fx:id ///
     @FXML
     private TextField parIdTxt;
 
@@ -40,7 +39,7 @@ public class AddPartFormController extends SuperController implements Initializa
     @FXML
     private Label machineCompanyLabel;
 
-    //// Toggle Group ////
+    /// Part Form Toggle Group Fields fx:id ///
     @FXML
     private ToggleGroup partFormToggle;
 
@@ -51,7 +50,7 @@ public class AddPartFormController extends SuperController implements Initializa
     private RadioButton outSourcedToggle;
 
 
-    //// Buttons ////
+    /// Part Form Button Fields fx:id ///
     @FXML
     public Button cancelButton;
 
@@ -59,7 +58,7 @@ public class AddPartFormController extends SuperController implements Initializa
     public Button addInventoryButton;
 
 
-    //// Part form methods for switching screens ///
+    //// Part form methods for switching screens ////
     @FXML
      void onActionAddDisplayMainScreen() throws IOException {
         //more code
@@ -71,6 +70,7 @@ public class AddPartFormController extends SuperController implements Initializa
         displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
+    //// Part form methods for toggling between machine/company label
     @FXML
     void onActionInHouseRadioButton(ActionEvent event) {
         machineCompanyLabel.setText("Machine ID");
@@ -81,6 +81,7 @@ public class AddPartFormController extends SuperController implements Initializa
         machineCompanyLabel.setText("Company Name");
     }
 
+    ////////////
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

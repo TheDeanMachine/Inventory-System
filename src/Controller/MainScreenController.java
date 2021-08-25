@@ -1,6 +1,5 @@
 package Controller;
 
-
 /**
  * The Main Screen Class
  * Displays two screens, one for parts and one for products
@@ -21,8 +20,7 @@ import java.io.IOException;
 
 public class MainScreenController extends SuperController {
 
-    ///// Parts Screen Fields /////
-
+    /// Part Form Text Fields fx:id ///
     @FXML
     private TextField searchPartTxt;
 
@@ -41,8 +39,7 @@ public class MainScreenController extends SuperController {
     @FXML
     private TableColumn<?, ?> partPriceColumn;
 
-    /// Buttons
-
+    /// Part Form Button Fields fx:id ///
     @FXML
     private Button deletePartButton;
 
@@ -57,8 +54,7 @@ public class MainScreenController extends SuperController {
     }
 
 
-    //// Product Screen Fields ////
-
+    /// Product Form Text Fields fx:id ///
     @FXML
     private TextField searchProductTxt;
 
@@ -77,6 +73,7 @@ public class MainScreenController extends SuperController {
     @FXML
     private TableColumn<?, ?> productPriceColumn;
 
+    /// Product Form Text Fields fx:id ///
     @FXML
     private Button deleteProductButton;
 
@@ -104,7 +101,7 @@ public class MainScreenController extends SuperController {
 
     @FXML
     void onActionDisplayModifyPartForm() throws IOException {
-        displayNewScreen(modifyPartButton, "/View/ModifyPartFormInHouse.fxml", "Modify Part Form");
+        displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form");
     }
 
     @FXML
@@ -113,7 +110,7 @@ public class MainScreenController extends SuperController {
     }
 
 
-    //// Product Methods ////
+    //// Product Screen Methods ////
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
 
