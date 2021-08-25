@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 public abstract class SuperController {
-    // Reference Attributes
+    // Reference Variables
     Stage stage;
     Parent root;
 

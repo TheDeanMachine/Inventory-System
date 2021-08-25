@@ -5,39 +5,47 @@ package Controller;
  * Displays two screens, one for parts and one for products
  */
 
+import Model.Inventory;
+import Model.Part;
+import Model.Product;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainScreenController extends SuperController {
+public class MainScreenController extends SuperController implements Initializable {
 
-    /// Part Form Text Fields fx:id ///
+    /// Part Form Search Field fx:id ///
     @FXML
     private TextField searchPartTxt;
 
+    /// Part Form TableView Fields fx:id ///
     @FXML
-    private TableView<?> partsTableView;
+    private TableView<Part> partsTableView;
 
     @FXML
-    private TableColumn<?, ?> partIdColumn;
+    private TableColumn<Part, Integer> partIdColumn;
 
     @FXML
-    private TableColumn<?, ?> partNameColumn;
+    private TableColumn<Part, String> partNameColumn;
 
     @FXML
-    private TableColumn<?, ?> partInventoryColumn;
+    private TableColumn<Part, Integer> partInventoryColumn;
 
     @FXML
-    private TableColumn<?, ?> partPriceColumn;
+    private TableColumn<Part, Double> partPriceColumn;
 
     /// Part Form Button Fields fx:id ///
     @FXML
@@ -47,33 +55,30 @@ public class MainScreenController extends SuperController {
     public Button modifyPartButton;
 
     @FXML
-    private Button addPartButton;
-
-    public Button getAddPartButton(){
-        return addPartButton;
-    }
+    public Button addPartButton;
 
 
-    /// Product Form Text Fields fx:id ///
+    /// Product Form Search Fields fx:id ///
     @FXML
     private TextField searchProductTxt;
 
+    /// Product Form TableView Fields fx:id ///
     @FXML
-    private TableView<?> productsTableView;
+    private TableView<Product> productsTableView;
 
     @FXML
-    private TableColumn<?, ?> productIdColumn;
+    private TableColumn<Product, Integer> productIdColumn;
 
     @FXML
-    private TableColumn<?, ?> productNameColumn;
+    private TableColumn<Product, String> productNameColumn;
 
     @FXML
-    private TableColumn<?, ?> productInventoryColumn;
+    private TableColumn<Product, Integer> productInventoryColumn;
 
     @FXML
-    private TableColumn<?, ?> productPriceColumn;
+    private TableColumn<Product, Double> productPriceColumn;
 
-    /// Product Form Text Fields fx:id ///
+    /// Product Form Button Fields fx:id ///
     @FXML
     private Button deleteProductButton;
 
@@ -83,10 +88,10 @@ public class MainScreenController extends SuperController {
     @FXML
     public Button addProductButton;
 
-    /// Exit Button ///
     @FXML
     private Button exitButton;
 
+    /// Exit Method ///
     @FXML
     void onActionExitApplication(ActionEvent event) {
         Platform.exit();
@@ -106,7 +111,7 @@ public class MainScreenController extends SuperController {
 
     @FXML
     void onActionDisplayAddPartForm() throws IOException {
-        displayNewScreen(getAddPartButton(), "/View/AddPartForm.fxml", "Add Part Form");
+        displayNewScreen(addPartButton, "/View/AddPartForm.fxml", "Add Part Form");
     }
 
 
@@ -126,11 +131,20 @@ public class MainScreenController extends SuperController {
        displayNewScreen(addProductButton, "/View/AddProductForm.fxml", "Product Form");
     }
 
+    /// Initialize method
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // set the tableview with the data it will be working with
+        partsTableView.setItems(Inventory.getAllParts());
+
+        // set the column with the data
+        partIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
 
-
-
-
-
+    }
 }
 

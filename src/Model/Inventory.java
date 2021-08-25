@@ -9,7 +9,6 @@ public class Inventory {
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
 
-
    public static void addPart(Part newPart){
        allParts.add(newPart);
    }

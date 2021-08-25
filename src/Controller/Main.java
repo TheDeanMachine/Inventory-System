@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.InHouse;
+import Model.Inventory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +20,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
+        // Add initial data to the TableView
+        InHouse part1 = new InHouse(1, "Handle Bars", 99, 2,1, 10, 22);
+        Inventory.addPart(part1);
+
+        // Launch JavaFx
         launch(args);
     }
 }
