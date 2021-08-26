@@ -1,16 +1,20 @@
 package Controller;
 
+import Model.InHouse;
+import Model.Inventory;
+import Model.Outsourced;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 
 import java.io.IOException;
 
-public class ModifyPartFormController extends SuperController {
+public class ModifyPartFormController extends SuperController implements Initializable {
 
     /// Part Form Text Fields fx:id ///
     @FXML
@@ -32,7 +36,7 @@ public class ModifyPartFormController extends SuperController {
     private TextField partMaxTxt;
 
     @FXML
-    private TextField machineIdTxt;
+    private TextField machineCompanyTxt;
 
     @FXML
     private Label machineCompanyLabel;
@@ -42,10 +46,10 @@ public class ModifyPartFormController extends SuperController {
     private ToggleGroup partFormToggle;
 
     @FXML
-    private RadioButton inHouseToggle;
+    private RadioButton inHouseRadioButton;
 
     @FXML
-    private RadioButton outSourcedToggle;
+    private RadioButton outSourcedRadioButton;
 
     /// Part Form Button Fields fx:id ///
     @FXML
@@ -55,15 +59,21 @@ public class ModifyPartFormController extends SuperController {
     public Button saveButton;
 
 
-    //// Part form methods for switching screens ////
+    //// Part form methods ////
     @FXML
-    void onActionCancelDisplayMainScreen() throws IOException {
-        displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
+    void onActionSaveDisplayMainScreen() throws IOException {
+        //TODO
+
+        // display the field values for each label
+        // save any changes made
+
+
+        displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
     @FXML
-    void onActionSaveDisplayMainScreen() throws IOException {
-        displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
+    void onActionCancelDisplayMainScreen() throws IOException {
+        displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
     //// Part form methods for toggling between machine/company label
@@ -77,5 +87,16 @@ public class ModifyPartFormController extends SuperController {
         machineCompanyLabel.setText("Company Name");
     }
 
+
+    ///////////
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //TODO
+
+        // find the part that was clicked on in the main screen
+        // load the parts information
+
+
+    }
 }
 

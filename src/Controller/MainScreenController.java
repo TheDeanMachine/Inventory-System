@@ -138,11 +138,13 @@ public class MainScreenController extends SuperController implements Initializab
         // set the tableview with the data it will be working with
         partsTableView.setItems(Inventory.getAllParts());
 
-        // set the column with the data
+        // set the columns with the data
         partIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
 
 
     }
