@@ -104,9 +104,21 @@ public class MainScreenController extends SuperController implements Initializab
 
     }
 
+
+
     @FXML
     void onActionDisplayModifyPartForm() throws IOException {
+
+        // get user selected part
+        Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
+        int index = partsTableView.getSelectionModel().getSelectedIndex();
+        System.out.println(selectedItem);
+        System.out.println(index);
+       // holdData(index);
+
+
         displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form");
+
     }
 
     @FXML
@@ -135,7 +147,7 @@ public class MainScreenController extends SuperController implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // set the tableview with the data it will be working with
+        // set the parts' tableview with the data it will be working with
         partsTableView.setItems(Inventory.getAllParts());
 
         // set the columns with the data
@@ -145,6 +157,14 @@ public class MainScreenController extends SuperController implements Initializab
         partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
 
+        // set the products' tableview with the data it will be working with
+        productsTableView.setItems(Inventory.getAllProducts());
+
+        // set the columns with the data
+        productIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
 
     }

@@ -3,6 +3,7 @@ package Controller;
 import Model.InHouse;
 import Model.Inventory;
 import Model.Outsourced;
+import Model.Part;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -59,6 +60,14 @@ public class ModifyPartFormController extends SuperController implements Initial
     public Button saveButton;
 
 
+    public void holdData(int type) {
+
+
+    }
+
+
+
+
     //// Part form methods ////
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
@@ -66,6 +75,8 @@ public class ModifyPartFormController extends SuperController implements Initial
 
         // display the field values for each label
         // save any changes made
+
+
 
 
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
