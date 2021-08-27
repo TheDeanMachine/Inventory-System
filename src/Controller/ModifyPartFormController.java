@@ -2,7 +2,6 @@ package Controller;
 
 import Model.InHouse;
 import Model.Inventory;
-import Model.Outsourced;
 import Model.Part;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,8 +11,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-import java.io.IOException;
 
 public class ModifyPartFormController extends SuperController implements Initializable {
 
@@ -60,12 +57,6 @@ public class ModifyPartFormController extends SuperController implements Initial
     public Button saveButton;
 
 
-    public void holdData(int type) {
-
-
-    }
-
-
 
 
     //// Part form methods ////
@@ -74,6 +65,11 @@ public class ModifyPartFormController extends SuperController implements Initial
         //TODO
 
         // display the field values for each label
+
+        item.getId();
+        partNameTxt.setText(item.getName());
+
+
         // save any changes made
 
 
@@ -102,12 +98,51 @@ public class ModifyPartFormController extends SuperController implements Initial
     ///////////
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO
 
-        // find the part that was clicked on in the main screen
-        // load the parts information
+        parIdTxt.setText(String.valueOf(item.getId()));
+        partNameTxt.setText(item.getName());
+        partInvTxt.setText(String.valueOf(item.getStock()));
+        partPriceTxt.setText(String.valueOf(item.getPrice()));
+        partMaxTxt.setText(String.valueOf(item.getPrice()));
+        partMinTxt.setText(String.valueOf(item.getMin()));
+
+        // Distinguish between which radio button input was selected for the last text field option
+        int machineId = 0; // place holder values
+        String companyName = ""; // place holder values
+
+//        for(Part item : Inventory.getAllParts()) {
+//            if(Inventory.getAllParts().contains(item)) {
+//
+//            }
+//        }
+
+        if (inHouseRadioButton.isSelected()){
+          //  machineId = machineCompanyTxt.setText(item.get());
+
+        } else {
+            companyName = machineCompanyTxt.getText();
+        }
+
+
+
+
 
 
     }
+
+    private static Part item = null;
+
+    public static void holdData(Part selectedPart) {
+        item = selectedPart;
+    }
+
+//    private Part item = null;
+//
+//    public void holdData(Part selectedPart) {
+//        item = selectedPart;
+//        //System.out.println(selectedPart.getId());
+//    }
+
+
 }
 

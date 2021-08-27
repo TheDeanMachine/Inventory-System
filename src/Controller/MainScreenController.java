@@ -108,17 +108,15 @@ public class MainScreenController extends SuperController implements Initializab
 
     @FXML
     void onActionDisplayModifyPartForm() throws IOException {
-
         // get user selected part
         Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
-        int index = partsTableView.getSelectionModel().getSelectedIndex();
-        System.out.println(selectedItem);
-        System.out.println(index);
-       // holdData(index);
-
+        ModifyPartFormController.holdData(selectedItem);
 
         displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form");
 
+
+        // call the overloaded display method passing the selected item
+        //displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form", selectedItem);
     }
 
     @FXML
