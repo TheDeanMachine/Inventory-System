@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -35,36 +36,38 @@ public class AddProductFormController extends SuperController {
     @FXML
     private TextField productMaxTxt;
 
-    /// Product Form TableView Fields fx:id ///
+    /// Product Form, Parts TableView Fields fx:id ///
     @FXML
-    private TableView<?> partsTableView1;
+    private TableView<Part> partsTableView1;
 
     @FXML
-    private TableColumn<?, ?> partIdColumn1;
+    private TableColumn<Part, Integer> partIdColumn1;
 
     @FXML
-    private TableColumn<?, ?> partNameColumn1;
+    private TableColumn<Part, String> partNameColumn1;
 
     @FXML
-    private TableColumn<?, ?> partInventoryColumn1;
+    private TableColumn<Part, Integer> partInventoryColumn1;
 
     @FXML
-    private TableColumn<?, ?> partPriceColumn1;
+    private TableColumn<Part, Double> partPriceColumn1;
+
+
+    /// Product Form, Associated Parts TableView Fields fx:id ///
+    @FXML
+    private TableView<Part> partsTableView2;
 
     @FXML
-    private TableView<?> partsTableView2;
+    private TableColumn<Part, Integer> partIdColumn2;
 
     @FXML
-    private TableColumn<?, ?> partIdColumn2;
+    private TableColumn<Part, String> partNameColumn2;
 
     @FXML
-    private TableColumn<?, ?> partNameColumn2;
+    private TableColumn<Part, Integer> partInventoryColumn2;
 
     @FXML
-    private TableColumn<?, ?> partInventoryColumn2;
-
-    @FXML
-    private TableColumn<?, ?> partPriceColumn2;
+    private TableColumn<Part, Double> partPriceColumn2;
 
     /// Product Form Button Fields fx:id ///
     @FXML
@@ -87,6 +90,19 @@ public class AddProductFormController extends SuperController {
     /// Product Form change screen methods
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
+
+        // Get Input from user
+        int id = Integer.parseInt(productIdTxt.getText());
+        String name = productNameTxt.getText();
+        double price = Double.parseDouble(productPriceTxt.getText());
+        int stock = Integer.parseInt(productInvTxt.getText());
+        int min = Integer.parseInt(productMinTxt.getText());
+        int max = Integer.parseInt(productMaxTxt.getText());
+
+        // Create the product and add it to product list
+        Product newProduct = new Product(id, name, price, stock, min, max);
+        Inventory.addProduct(newProduct);
+
        displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
     }
 

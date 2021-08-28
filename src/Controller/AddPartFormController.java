@@ -59,7 +59,7 @@ public class AddPartFormController extends SuperController implements Initializa
 
     //// Part form methods ////
     @FXML
-     void onActionAddDisplayMainScreen() throws IOException {
+    void onActionAddDisplayMainScreen() throws IOException {
 
         // Get Input from user
         int id = Integer.parseInt(parIdTxt.getText());
@@ -68,26 +68,19 @@ public class AddPartFormController extends SuperController implements Initializa
         int stock = Integer.parseInt(partInvTxt.getText());
         int min = Integer.parseInt(partMinTxt.getText());
         int max = Integer.parseInt(partMaxTxt.getText());
-        int machineId = 0; // place holder values
-        String companyName = "null"; // place holder values
 
-        // Distinguish between which radio button input was selected for the last text field option
-        if (inHouseRadioButton.isSelected()){
-            machineId = Integer.parseInt(machineCompanyTxt.getText());
-
-        } else {
-            companyName = machineCompanyTxt.getText();
-        }
-
-        // Create an object based on the input that was selected for the last text field option
-        if (inHouseRadioButton.isSelected()){
+        // Distinguish between which radio button input was selected and add part to parts list
+        if (inHouseRadioButton.isSelected()) {
+            int machineId = Integer.parseInt(machineCompanyTxt.getText());
             InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
             Inventory.addPart(newPart);
         } else {
+            String companyName = machineCompanyTxt.getText();
             Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.addPart(newPart);
         }
 
+        // display the new screen
         displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
     }
 

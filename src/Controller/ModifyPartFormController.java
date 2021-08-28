@@ -86,11 +86,23 @@ public class ModifyPartFormController extends SuperController implements Initial
         machineCompanyLabel.setText("Company Name");
     }
 
+    /**
+     * LOGICAL ERROR
+     * The issue in this method was getting the last item in the object, machine/company.
+     * The problem was the abstract Part form method could not be changed to add a getter
+     * and the InHouse class has only non-static methods, which I could not use here.
+     * The solution was type casting the item(Part) object as an InHouse object
+     * and calling its getter method.
+     *
+     *
+     * @param url
+     * @param resourceBundle
+     */
 
-    ///////////
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        /////////// set the form with the user selected objects value
         parIdTxt.setText(String.valueOf(item.getId()));
         partNameTxt.setText(item.getName());
         partInvTxt.setText(String.valueOf(item.getStock()));
@@ -100,11 +112,9 @@ public class ModifyPartFormController extends SuperController implements Initial
 
         if (item instanceof InHouse) {
             machineCompanyTxt.setText(String.valueOf(((InHouse)item).getMachineId()));
-            machineCompanyLabel.setText("Machine Id");
             inHouseRadioButton.setSelected(true);
         } else {
             machineCompanyTxt.setText(String.valueOf(((Outsourced)item).getCompanyName()));
-            machineCompanyLabel.setText("Company Name");
             outSourcedRadioButton.setSelected(true);
         }
 
@@ -115,6 +125,8 @@ public class ModifyPartFormController extends SuperController implements Initial
     public static void holdData(Part selectedPart) {
         item = selectedPart;
     }
+
+
 
 //    private Part item = null;
 //

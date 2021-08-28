@@ -105,6 +105,19 @@ public class MainScreenController extends SuperController implements Initializab
     }
 
 
+    /**
+     * RUNTIME ERROR
+     * Had issues with passing the selected part object to the part from controller
+     * There were a few solutions, including adding an overloaded method to the
+     * super controller, which did get the item into the part form controller.
+     * However, I could not populate the form field with data on load.
+     * The next solution was to create a static method in the part form controller
+     * and then pass the item to it, that way on initialize I could populate the
+     * form with the data.
+     *
+     *
+     * @throws IOException
+     */
 
     @FXML
     void onActionDisplayModifyPartForm() throws IOException {
@@ -133,6 +146,12 @@ public class MainScreenController extends SuperController implements Initializab
 
     @FXML
     void onActionDisplayModifyProductForm() throws IOException {
+
+        // get user selected part
+        Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
+        // pass the item to product form
+        ModifyProductFormController.holdData(selectedItem);
+
         displayNewScreen(modifyProductButton, "/View/ModifyProductForm.fxml", "Product Form");
     }
 
