@@ -2,6 +2,7 @@ package Controller;
 
 import Model.InHouse;
 import Model.Inventory;
+import Model.Outsourced;
 import Model.Part;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -64,15 +65,6 @@ public class ModifyPartFormController extends SuperController implements Initial
     void onActionSaveDisplayMainScreen() throws IOException {
         //TODO
 
-        // display the field values for each label
-
-        item.getId();
-        partNameTxt.setText(item.getName());
-
-
-        // save any changes made
-
-
 
 
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
@@ -103,30 +95,18 @@ public class ModifyPartFormController extends SuperController implements Initial
         partNameTxt.setText(item.getName());
         partInvTxt.setText(String.valueOf(item.getStock()));
         partPriceTxt.setText(String.valueOf(item.getPrice()));
-        partMaxTxt.setText(String.valueOf(item.getPrice()));
+        partMaxTxt.setText(String.valueOf(item.getMax()));
         partMinTxt.setText(String.valueOf(item.getMin()));
 
-        // Distinguish between which radio button input was selected for the last text field option
-        int machineId = 0; // place holder values
-        String companyName = ""; // place holder values
-
-//        for(Part item : Inventory.getAllParts()) {
-//            if(Inventory.getAllParts().contains(item)) {
-//
-//            }
-//        }
-
-        if (inHouseRadioButton.isSelected()){
-          //  machineId = machineCompanyTxt.setText(item.get());
-
+        if (item instanceof InHouse) {
+            machineCompanyTxt.setText(String.valueOf(((InHouse)item).getMachineId()));
+            machineCompanyLabel.setText("Machine Id");
+            inHouseRadioButton.setSelected(true);
         } else {
-            companyName = machineCompanyTxt.getText();
+            machineCompanyTxt.setText(String.valueOf(((Outsourced)item).getCompanyName()));
+            machineCompanyLabel.setText("Company Name");
+            outSourcedRadioButton.setSelected(true);
         }
-
-
-
-
-
 
     }
 
