@@ -18,37 +18,55 @@ public class Inventory {
    }
 
    public static Part lookupPart(int partId) {
-      // if(partId ==
-
+       for (Part item : allParts) {
+           if(item.getId() == partId)
+               return item;
+       }
        return null;
    }
 
-   public static Product lookupProduct(int productId){
-        return null;
+   public static Product lookupProduct(int productId) {
+       for (Product item : allProducts) {
+           if(item.getId() == productId)
+               return item;
+       }
+       return null;
    }
 
    public static ObservableList<Part> lookupPart(String partName) {
+       for (Part item : allParts) {
+           if(item.getName().equals(partName))
+               return allParts;
+       }
        return null;
    }
 
 
    public static ObservableList<Product> lookupProduct(String productName) {
+       for (Product item : allProducts) {
+           if(item.getName().equals(productName))
+               return allProducts;
+       }
        return null;
    }
 
-   public static void updatePart(int index, Part selectedPart){
-
+   public static void updatePart(int index, Part selectedPart) {
+      allParts.set(index, selectedPart);
    }
 
    public static void updateProduct(int index, Product newProduct){
-
+       allProducts.set(index, newProduct);
    }
 
-   public static boolean deletePart(Part selectedPart){
+   public static boolean deletePart(Part selectedPart) {
+       //loop through to find part????
+       allParts.remove(selectedPart);
        return false;
    }
 
-   public static boolean deleteProduct(Product selectedProduct){
+   public static boolean deleteProduct(Product selectedProduct) {
+       //loop through to find product????
+       allProducts.remove(selectedProduct);
        return false;
    }
 

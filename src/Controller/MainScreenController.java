@@ -123,6 +123,7 @@ public class MainScreenController extends SuperController implements Initializab
     void onActionDisplayModifyPartForm() throws IOException {
         // get user selected part
         Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
+        // pass the item to part form
         ModifyPartFormController.holdData(selectedItem);
 
         displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form");

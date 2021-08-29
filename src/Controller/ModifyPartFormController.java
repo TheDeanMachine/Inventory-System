@@ -65,6 +65,14 @@ public class ModifyPartFormController extends SuperController implements Initial
     void onActionSaveDisplayMainScreen() throws IOException {
         //TODO
 
+        //determine if something was changed?
+        //look up the part -- using the inventory method loop up part
+        //find its index
+        //call the update method in inventory passing index and the part
+
+
+       // allParts.contains(selectedPart);
+       // allParts.indexOf(selectedPart);
 
 
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
@@ -120,8 +128,10 @@ public class ModifyPartFormController extends SuperController implements Initial
 
     }
 
+    // field for holding the passed item
     private static Part item = null;
 
+    // method for catching the passed part from main controller
     public static void holdData(Part selectedPart) {
         item = selectedPart;
     }
