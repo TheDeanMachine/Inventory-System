@@ -63,17 +63,28 @@ public class ModifyPartFormController extends SuperController implements Initial
     //// Part form methods ////
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
-        //TODO
 
-        //determine if something was changed?
-        //look up the part -- using the inventory method loop up part
-        //find its index
-        //call the update method in inventory passing index and the part
+        // Get Input from user
+        int id = Integer.parseInt(parIdTxt.getText());
+        String name = partNameTxt.getText();
+        double price = Double.parseDouble(partPriceTxt.getText());
+        int stock = Integer.parseInt(partInvTxt.getText());
+        int min = Integer.parseInt(partMinTxt.getText());
+        int max = Integer.parseInt(partMaxTxt.getText());
 
+        // get the items index
+        int index = Inventory.getAllParts().indexOf(item);
 
-       // allParts.contains(selectedPart);
-       // allParts.indexOf(selectedPart);
-
+        // Distinguish between which part the item belong to and add update the part
+        if (item instanceof InHouse) {
+            int machineId = Integer.parseInt(machineCompanyTxt.getText());
+            InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
+            Inventory.updatePart(index, newPart);
+        } else {
+            String companyName = machineCompanyTxt.getText();
+            Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
+            Inventory.updatePart(index, newPart);
+        }
 
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
     }
@@ -95,7 +106,7 @@ public class ModifyPartFormController extends SuperController implements Initial
     }
 
     /**
-     * LOGICAL ERROR
+     * LOGICAL ERROR.
      * The issue in this method was getting the last item in the object, machine/company.
      * The problem was the abstract Part form method could not be changed to add a getter
      * and the InHouse class has only non-static methods, which I could not use here.
@@ -135,7 +146,6 @@ public class ModifyPartFormController extends SuperController implements Initial
     public static void holdData(Part selectedPart) {
         item = selectedPart;
     }
-
 
 
 //    private Part item = null;

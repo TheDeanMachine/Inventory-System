@@ -1,7 +1,7 @@
 package Controller;
 
 /**
- * The Main Screen Class
+ * The Main Screen Class.
  * Displays two screens, one for parts and one for products
  */
 
@@ -106,7 +106,7 @@ public class MainScreenController extends SuperController implements Initializab
 
 
     /**
-     * RUNTIME ERROR
+     * RUNTIME ERROR.
      * Had issues with passing the selected part object to the part from controller
      * There were a few solutions, including adding an overloaded method to the
      * super controller, which did get the item into the part form controller.
