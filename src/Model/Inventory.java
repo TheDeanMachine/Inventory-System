@@ -58,11 +58,15 @@ public class Inventory {
      * @return the Part observableArrayList if found matching name
      */
    public static ObservableList<Part> lookupPart(String partName) {
+       // create an empty arraylist to hold the found parts
+       ObservableList<Part> foundParts = FXCollections.observableArrayList();
+
        for (Part item : allParts) {
-           if(item.getName().equals(partName))
-               return allParts;
+           if((item.getName().toLowerCase()).contains(partName.toLowerCase())){
+               foundParts.add(item);
+           }
        }
-       return null;
+       return foundParts;
    }
 
     /**
@@ -71,11 +75,15 @@ public class Inventory {
      * @return the Products observableArrayList if found matching name
      */
    public static ObservableList<Product> lookupProduct(String productName) {
+       // create an empty arraylist to hold the found parts
+       ObservableList<Product> foundProducts = FXCollections.observableArrayList();
+
        for (Product item : allProducts) {
-           if(item.getName().equals(productName))
-               return allProducts;
+           if((item.getName().toLowerCase()).contains(productName.toLowerCase())){
+               foundProducts.add(item);
+           }
        }
-       return null;
+       return foundProducts;
    }
 
     /**

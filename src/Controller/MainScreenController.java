@@ -9,6 +9,7 @@ import Model.Inventory;
 import Model.Part;
 import Model.Product;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -58,6 +59,7 @@ public class MainScreenController extends SuperController implements Initializab
     public Button addPartButton;
 
 
+
     /// Product Form Search Fields fx:id ///
     @FXML
     private TextField searchProductTxt;
@@ -97,13 +99,45 @@ public class MainScreenController extends SuperController implements Initializab
         Platform.exit();
     }
 
+    /// Search Methods ///
+    @FXML
+    void onActionSearchParts(ActionEvent event) {
+        // get the users input
+        String item = searchPartTxt.getText();
+        // create an empty list to hold the results
+        ObservableList<Part> foundParts = Inventory.lookupPart(item);
+        // set the TableView with the new data
+        partsTableView.setItems(foundParts);
+
+        if(foundParts.isEmpty()) {
+            int anInt = Integer.parseInt(searchPartTxt.getText());
+            Inventory.lookupPart(anInt);
+            partsTableView.setItems(foundParts);
+        }
+
+    }
+
+    @FXML
+    void onActionSearchProducts(ActionEvent event) {
+        // get the users input
+        String item = searchProductTxt.getText();
+        // create an empty list to hold the results
+        ObservableList<Product> foundProducts = Inventory.lookupProduct(item);
+        // set the TableView with the new data
+        productsTableView.setItems(foundProducts);
+
+    }
+
 
     //// Part Screen Methods ////
     @FXML
     void onActionDeletePart(ActionEvent event) {
+        //TODO
+
+        //get the users' selection
+        //call the inventory delete method
 
     }
-
 
     /**
      * RUNTIME ERROR.
@@ -114,7 +148,6 @@ public class MainScreenController extends SuperController implements Initializab
      * The next solution was to create a static method in the part form controller
      * and then pass the item to it, that way on initialize I could populate the
      * form with the data.
-     *
      *
      * @throws IOException
      */
@@ -147,7 +180,6 @@ public class MainScreenController extends SuperController implements Initializab
 
     @FXML
     void onActionDisplayModifyProductForm() throws IOException {
-
         // get user selected part
         Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
         // pass the item to product form

@@ -1,7 +1,6 @@
 package Controller;
 
-import Model.Part;
-import Model.Product;
+import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -93,8 +92,21 @@ public class ModifyProductFormController extends SuperController implements Init
     /// Product Form change screen methods
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
-        //TODO
 
+        // Get Input from user
+        int id = Integer.parseInt(productIdTxt.getText());
+        String name = productNameTxt.getText();
+        double price = Double.parseDouble(productPriceTxt.getText());
+        int stock = Integer.parseInt(productInvTxt.getText());
+        int min = Integer.parseInt(productMinTxt.getText());
+        int max = Integer.parseInt(productMaxTxt.getText());
+
+        // get the items index
+        int index = Inventory.getAllProducts().indexOf(item);
+
+        // updated the product item
+        Product newPart = new Product(id, name, price, stock, min, max);
+        Inventory.updateProduct(index, newPart);
 
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
     }

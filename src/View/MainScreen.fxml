@@ -26,7 +26,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="searchPartTxt" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="159.0" promptText="Search by Part ID or Name">
+                        <TextField fx:id="searchPartTxt" alignment="CENTER_RIGHT" onAction="#onActionSearchParts" prefHeight="25.0" prefWidth="159.0" promptText="Search by Part ID or Name">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -82,7 +82,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="searchProductTxt" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="185.0" promptText="Search by Product ID or Name">
+                        <TextField fx:id="searchProductTxt" alignment="CENTER_RIGHT" onAction="#onActionSearchProducts" prefHeight="25.0" prefWidth="185.0" promptText="Search by Product ID or Name">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -131,7 +131,7 @@
             <Font name="Dubai Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="978.0" layoutY="27.0" mnemonicParsing="false" onAction="#onActionExitApplication" prefWidth="70.0" style="-fx-background-color: #c3bebe; -fx-border-color: #3573ee; -fx-border-radius: 3px;" text="Exit">
+      <Button fx:id="exitButton" alignment="CENTER" cancelButton="true" contentDisplay="CENTER" layoutX="978.0" layoutY="27.0" mnemonicParsing="false" onAction="#onActionExitApplication" prefWidth="70.0" style="-fx-background-color: #c3bebe; -fx-border-color: #3573ee; -fx-border-radius: 3px;" text="Exit">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

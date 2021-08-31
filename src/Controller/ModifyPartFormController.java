@@ -105,6 +105,14 @@ public class ModifyPartFormController extends SuperController implements Initial
         machineCompanyLabel.setText("Company Name");
     }
 
+    // field for holding the passed item
+    private static Part item = null;
+
+    // method for catching the passed part from main controller
+    public static void holdData(Part selectedPart) {
+        item = selectedPart;
+    }
+
     /**
      * LOGICAL ERROR.
      * The issue in this method was getting the last item in the object, machine/company.
@@ -112,7 +120,6 @@ public class ModifyPartFormController extends SuperController implements Initial
      * and the InHouse class has only non-static methods, which I could not use here.
      * The solution was type casting the item(Part) object as an InHouse object
      * and calling its getter method.
-     *
      *
      * @param url
      * @param resourceBundle
@@ -138,23 +145,6 @@ public class ModifyPartFormController extends SuperController implements Initial
         }
 
     }
-
-    // field for holding the passed item
-    private static Part item = null;
-
-    // method for catching the passed part from main controller
-    public static void holdData(Part selectedPart) {
-        item = selectedPart;
-    }
-
-
-//    private Part item = null;
-//
-//    public void holdData(Part selectedPart) {
-//        item = selectedPart;
-//        //System.out.println(selectedPart.getId());
-//    }
-
 
 }
 
