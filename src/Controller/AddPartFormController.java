@@ -7,9 +7,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class AddPartFormController extends SuperController implements Initializable {
 
@@ -56,6 +57,9 @@ public class AddPartFormController extends SuperController implements Initializa
     @FXML
     public Button addInventoryButton;
 
+    public AddPartFormController() throws FileNotFoundException {
+    }
+
 
     //// Part form methods ////
     @FXML
@@ -69,7 +73,7 @@ public class AddPartFormController extends SuperController implements Initializa
         int min = Integer.parseInt(partMinTxt.getText());
         int max = Integer.parseInt(partMaxTxt.getText());
 
-        // Distinguish between which radio button input was selected and add part to parts list
+        // Distinguish between which radio button input was selected and add part to part list
         if (inHouseRadioButton.isSelected()) {
             int machineId = Integer.parseInt(machineCompanyTxt.getText());
             InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
@@ -100,9 +104,46 @@ public class AddPartFormController extends SuperController implements Initializa
         machineCompanyLabel.setText("Company Name");
     }
 
-    ////////////
+
+
+    public static void storeID(int inputFile) {
+        PrintWriter outputFile = null;
+        try {
+            outputFile = new PrintWriter("uniqueID.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        outputFile.println(inputFile);
+        outputFile.close();
+    }
+
+    public static int generateID(){
+        File file = new File("uniqueID.txt");
+        Scanner inputFile = null;
+        try {
+            inputFile = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // Read the first line from the file.
+        int line = inputFile.nextInt();
+
+        //increment the number by one write to the file
+        line++;
+        storeID(line);
+
+        // Close the file.
+        inputFile.close();
+
+        return line;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        generateID();
+//        System.out.println("The first line in the file is:");
+//        System.out.println(generateID());
 
     }
 }
