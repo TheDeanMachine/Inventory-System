@@ -9,6 +9,7 @@ import Model.Inventory;
 import Model.Part;
 import Model.Product;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -105,15 +106,19 @@ public class MainScreenController extends SuperController implements Initializab
         // get the users input
         String item = searchPartTxt.getText();
         // create an empty list to hold the results
-        ObservableList<Part> foundParts = Inventory.lookupPart(item);
-        // set the TableView with the new data
-        partsTableView.setItems(foundParts);
+        ObservableList<Part> foundParts = FXCollections.observableArrayList();
 
-        if(foundParts.isEmpty()) {
+        // search based on numeric or string input
+        if(isNumeric(item)) {
             int anInt = Integer.parseInt(searchPartTxt.getText());
-            Inventory.lookupPart(anInt);
-            partsTableView.setItems(foundParts);
+            Part itemReturned = Inventory.lookupPart(anInt);
+            foundParts.add(itemReturned);
+        }else {
+            foundParts = Inventory.lookupPart(item);
         }
+
+        // set the TableView with the found items
+        partsTableView.setItems(foundParts);
 
     }
 
@@ -122,7 +127,17 @@ public class MainScreenController extends SuperController implements Initializab
         // get the users input
         String item = searchProductTxt.getText();
         // create an empty list to hold the results
-        ObservableList<Product> foundProducts = Inventory.lookupProduct(item);
+        ObservableList<Product> foundProducts = FXCollections.observableArrayList();
+
+        // search based on numeric or string input
+        if(isNumeric(item)) {
+            int anInt = Integer.parseInt(searchProductTxt.getText());
+            Product itemReturned = Inventory.lookupProduct(anInt);
+            foundProducts.add(itemReturned);
+        }else {
+            foundProducts = Inventory.lookupProduct(item);
+        }
+
         // set the TableView with the new data
         productsTableView.setItems(foundProducts);
 
@@ -218,5 +233,17 @@ public class MainScreenController extends SuperController implements Initializab
 
 
     }
+
+    // Tests if a string is numeric
+    public static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
 }
 
