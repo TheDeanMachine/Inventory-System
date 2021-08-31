@@ -107,22 +107,24 @@ public class Inventory {
     /**
      * Deletes the selected part from the observableArrayList of Parts.
      * @param selectedPart the object to be deleted
-     * @return
+     * @return false if no part was found
      */
    public static boolean deletePart(Part selectedPart) {
-       //loop through to find part????
-       allParts.remove(selectedPart);
+       if(allParts.remove(selectedPart)) {
+           return true;
+       }
        return false;
    }
 
     /**
      * Deletes the Product from the observableArrayList of Products.
      * @param selectedProduct the object to be deleted
-     * @return
+     * @return false if no part was found
      */
    public static boolean deleteProduct(Product selectedProduct) {
-       //loop through to find product????
-       allProducts.remove(selectedProduct);
+       if(allProducts.remove(selectedProduct)){
+           return true;
+       }
        return false;
    }
 

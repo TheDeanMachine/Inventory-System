@@ -147,11 +147,9 @@ public class MainScreenController extends SuperController implements Initializab
     //// Part Screen Methods ////
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        //TODO
-
-        //get the users' selection
-        //call the inventory delete method
-
+        // get user selected part
+        Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
+        Inventory.deletePart(selectedItem);
     }
 
     /**
@@ -190,7 +188,9 @@ public class MainScreenController extends SuperController implements Initializab
     //// Product Screen Methods ////
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-
+        // get user selected part
+        Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(selectedItem);
     }
 
     @FXML
