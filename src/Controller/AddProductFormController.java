@@ -12,7 +12,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -93,6 +92,8 @@ public class AddProductFormController extends SuperController implements Initial
     private TextArea productTxtArea;
 
 
+    //Product instance
+    Product tempProduct = new Product(0, "", 0, 0, 0, 0);
 
     @FXML
     void onActionSearchParts(ActionEvent event) {
@@ -120,18 +121,16 @@ public class AddProductFormController extends SuperController implements Initial
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
 
-        // Get Input from user
-        //int id = Integer.parseInt(productIdTxt.getText());
-        int id = generateID();
-        String name = productNameTxt.getText();
-        double price = Double.parseDouble(productPriceTxt.getText());
-        int stock = Integer.parseInt(productInvTxt.getText());
-        int min = Integer.parseInt(productMinTxt.getText());
-        int max = Integer.parseInt(productMaxTxt.getText());
+        // Get input from user and set the temp object with data
+        tempProduct.setId(generateID());
+        tempProduct.setName(productNameTxt.getText());
+        tempProduct.setPrice(Double.parseDouble(productPriceTxt.getText()));
+        tempProduct.setStock(Integer.parseInt(productInvTxt.getText()));
+        tempProduct.setMin(Integer.parseInt(productMinTxt.getText()));
+        tempProduct.setMax(Integer.parseInt(productMaxTxt.getText()));
 
-        // Create the product and add it to product list
-        Product newProduct = new Product(id, name, price, stock, min, max);
-        Inventory.addProduct(newProduct);
+        // add the object to the product list
+        Inventory.addProduct(tempProduct);
 
        displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
     }
@@ -144,17 +143,12 @@ public class AddProductFormController extends SuperController implements Initial
     /// Product Form Add/Remove Associated part methods
     @FXML
     void onActionAddPart(ActionEvent event) {
+        // get user input
         Part selectedItem = partsTableView1.getSelectionModel().getSelectedItem();
-        Product tempProduct = new Product(0, "", 0, 0, 0, 0);
+        // add the part to a new list
         tempProduct.addAssociatedPart(selectedItem);
-
+        // display the new list
         partsTableView2.setItems(tempProduct.getAllAssociatedParts());
-
-        partIdColumn2.setCellValueFactory(new PropertyValueFactory<>("id"));
-        partNameColumn2.setCellValueFactory(new PropertyValueFactory<>("name"));
-        partInventoryColumn2.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        partPriceColumn2.setCellValueFactory(new PropertyValueFactory<>("price"));
-
     }
 
     @FXML
@@ -175,29 +169,14 @@ public class AddProductFormController extends SuperController implements Initial
         partInventoryColumn1.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceColumn1.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-
-//
-//         //set the second parts' tableview with the data it will be working with
-//        partsTableView2.setItems(tempProduct.getAllAssociatedParts());
-//
-//        // set the columns with the data
-//        partIdColumn2.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        partNameColumn2.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        partInventoryColumn2.setCellValueFactory(new PropertyValueFactory<>("stock"));
-//        partPriceColumn2.setCellValueFactory(new PropertyValueFactory<>("price"));
+        // set the second columns with the data
+        partIdColumn2.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameColumn2.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInventoryColumn2.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceColumn2.setCellValueFactory(new PropertyValueFactory<>("price"));
 
 
     }
-
-    ////////////////////////
-    //get the users' selection
-    //on button click do the following
-        ///associate with a product -- ie add to observable list, but a product is a list already
-        ///then display it the in second window --in order to display needs to be observable list
-    // be able to remove it as well
-
-
-
 
 }
 

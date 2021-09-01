@@ -134,8 +134,10 @@ public class ModifyProductFormController extends SuperController implements Init
     }
 
 
+    // field for holding the passed item
     private static Product item = null;
 
+    // method for catching the passed item from main controller
     public static void holdData(Product selectedPart) {
         item = selectedPart;
     }
