@@ -38,7 +38,7 @@
                   <Label prefHeight="17.0" prefWidth="32.0" text="Price" GridPane.rowIndex="3" />
                   <Label prefHeight="17.0" prefWidth="41.0" text="Min" GridPane.rowIndex="4" />
                   <Label text="Max" GridPane.rowIndex="5" />
-                  <TextField fx:id="productIdTxt" GridPane.columnIndex="1" />
+                  <TextField fx:id="productIdTxt" disable="true" editable="false" promptText="Auto Generated" GridPane.columnIndex="1" />
                   <TextField fx:id="productNameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="productInvTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="productPriceTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -72,7 +72,7 @@
             </TableView>
             <Button fx:id="addPartButton" alignment="CENTER" contentDisplay="CENTER" layoutX="598.0" layoutY="337.0" mnemonicParsing="false" onAction="#onActionAddPart" prefHeight="25.0" prefWidth="144.0" text="Add Associated Part" />
             <Button fx:id="removePartButton" layoutX="598.0" layoutY="596.0" mnemonicParsing="false" onAction="#onActionRemovePart" text="Remove Associated Part" />
-            <TextField fx:id="partSearchTxt" layoutX="587.0" layoutY="89.0" prefHeight="25.0" prefWidth="155.0" promptText="Search by Part ID or Name" />
+            <TextField fx:id="partSearchTxt" layoutX="587.0" layoutY="89.0" onAction="#onActionSearchParts" prefHeight="25.0" prefWidth="155.0" promptText="Search by Part ID or Name" />
             <Label layoutX="336.0" layoutY="93.0" prefHeight="17.0" prefWidth="165.0" text="Search for Asscociated Parts">
                <font>
                   <Font name="System Bold" size="12.0" />

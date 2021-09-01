@@ -66,7 +66,8 @@ public class AddPartFormController extends SuperController implements Initializa
     void onActionAddDisplayMainScreen() throws IOException {
 
         // Get Input from user
-        int id = Integer.parseInt(parIdTxt.getText());
+        //int id = Integer.parseInt(parIdTxt.getText());
+        int id = generateID();
         String name = partNameTxt.getText();
         double price = Double.parseDouble(partPriceTxt.getText());
         int stock = Integer.parseInt(partInvTxt.getText());
@@ -105,45 +106,43 @@ public class AddPartFormController extends SuperController implements Initializa
     }
 
 
-
-    public static void storeID(int inputFile) {
-        PrintWriter outputFile = null;
-        try {
-            outputFile = new PrintWriter("uniqueID.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        outputFile.println(inputFile);
-        outputFile.close();
-    }
-
-    public static int generateID(){
-        File file = new File("uniqueID.txt");
-        Scanner inputFile = null;
-        try {
-            inputFile = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // Read the first line from the file.
-        int line = inputFile.nextInt();
-
-        //increment the number by one write to the file
-        line++;
-        storeID(line);
-
-        // Close the file.
-        inputFile.close();
-
-        return line;
-    }
+//
+//    public static void storeID(int inputFile) {
+//        PrintWriter outputFile = null;
+//        try {
+//            outputFile = new PrintWriter("uniqueID.txt");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        outputFile.println(inputFile);
+//        outputFile.close();
+//    }
+//
+//    public static int generateID(){
+//        File file = new File("uniqueID.txt");
+//        Scanner inputFile = null;
+//        try {
+//            inputFile = new Scanner(file);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Read the first line from the file.
+//        int line = inputFile.nextInt();
+//
+//        //increment the number by one write to the file
+//        line++;
+//        storeID(line);
+//
+//        // Close the file.
+//        inputFile.close();
+//
+//        return line;
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        generateID();
-//        System.out.println("The first line in the file is:");
-//        System.out.println(generateID());
+      //generateID();
 
     }
 }

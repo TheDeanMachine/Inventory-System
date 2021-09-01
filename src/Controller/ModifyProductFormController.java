@@ -89,6 +89,12 @@ public class ModifyProductFormController extends SuperController implements Init
     private TextArea productTxtArea;
 
 
+    @FXML
+    void onActionSearchParts(ActionEvent event) {
+    }
+
+
+
     /// Product Form change screen methods
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
