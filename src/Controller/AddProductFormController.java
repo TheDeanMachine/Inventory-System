@@ -92,12 +92,11 @@ public class AddProductFormController extends SuperController implements Initial
     private TextArea productTxtArea;
 
 
-    //Product instance
+    //Product instance, will have its parameters set in a later method
     Product tempProduct = new Product(0, "", 0, 0, 0, 0);
 
     @FXML
     void onActionSearchParts(ActionEvent event) {
-
         // get the users input
         String item = partSearchTxt.getText();
         // create an empty list to hold the results
@@ -153,7 +152,9 @@ public class AddProductFormController extends SuperController implements Initial
 
     @FXML
     void onActionRemovePart(ActionEvent event) {
-
+        // get user selected part
+        Part selectedItem = partsTableView2.getSelectionModel().getSelectedItem();
+        tempProduct.deleteAssociatedPart(selectedItem);
     }
 
     @Override

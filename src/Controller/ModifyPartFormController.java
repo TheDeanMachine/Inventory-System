@@ -139,9 +139,11 @@ public class ModifyPartFormController extends SuperController implements Initial
         if (item instanceof InHouse) {
             machineCompanyTxt.setText(String.valueOf(((InHouse)item).getMachineId()));
             inHouseRadioButton.setSelected(true);
+            outSourcedRadioButton.setDisable(true);
         } else {
             machineCompanyTxt.setText(String.valueOf(((Outsourced)item).getCompanyName()));
             outSourcedRadioButton.setSelected(true);
+            inHouseRadioButton.setDisable(true);
         }
 
     }

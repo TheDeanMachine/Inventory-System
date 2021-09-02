@@ -124,23 +124,27 @@ public class MainScreenController extends SuperController implements Initializab
 
     @FXML
     void onActionSearchProducts(ActionEvent event) {
-        // get the users input
-        String item = searchProductTxt.getText();
-        // create an empty list to hold the results
-        ObservableList<Product> foundProducts = FXCollections.observableArrayList();
+        try {
+            // get the users input
+            String item = searchProductTxt.getText();
+            // create an empty list to hold the results
+            ObservableList<Product> foundProducts = FXCollections.observableArrayList();
 
-        // search based on numeric or string input
-        if(isNumeric(item)) {
-            int anInt = Integer.parseInt(searchProductTxt.getText());
-            Product itemReturned = Inventory.lookupProduct(anInt);
-            foundProducts.add(itemReturned);
-        }else {
-            foundProducts = Inventory.lookupProduct(item);
+            // search based on numeric or string input
+            if (isNumeric(item)) {
+                int anInt = Integer.parseInt(searchProductTxt.getText());
+                Product itemReturned = Inventory.lookupProduct(anInt);
+                foundProducts.add(itemReturned);
+            } else {
+                foundProducts = Inventory.lookupProduct(item);
+            }
+
+            // set the TableView with the new data
+            productsTableView.setItems(foundProducts);
+
+        } catch (NullPointerException e) {
+
         }
-
-        // set the TableView with the new data
-        productsTableView.setItems(foundProducts);
-
     }
 
 

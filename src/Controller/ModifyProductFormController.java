@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -84,6 +87,10 @@ public class ModifyProductFormController extends SuperController implements Init
     @FXML
     public Button saveButton;
 
+    /**
+     * FUTURE ENHANCEMENT.
+     * Provides a brief description of the product
+     */
     /// Product Form TextArea Fields fx:id ///
     @FXML
     private TextArea productTxtArea;
@@ -91,6 +98,22 @@ public class ModifyProductFormController extends SuperController implements Init
 
     @FXML
     void onActionSearchParts(ActionEvent event) {
+        // get the users input
+        String item = partSearchTxt.getText();
+        // create an empty list to hold the results
+        ObservableList<Part> foundParts = FXCollections.observableArrayList();
+
+        // search based on numeric or string input
+        if (isNumeric(item)) {
+            int anInt = Integer.parseInt(partSearchTxt.getText());
+            Part itemReturned = Inventory.lookupPart(anInt);
+            foundParts.add(itemReturned);
+        } else {
+            foundParts = Inventory.lookupPart(item);
+        }
+
+        // set the TableView with the found items
+        partsTableView1.setItems(foundParts);
     }
 
 
@@ -99,20 +122,18 @@ public class ModifyProductFormController extends SuperController implements Init
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
 
-        // Get Input from user
-        int id = Integer.parseInt(productIdTxt.getText());
-        String name = productNameTxt.getText();
-        double price = Double.parseDouble(productPriceTxt.getText());
-        int stock = Integer.parseInt(productInvTxt.getText());
-        int min = Integer.parseInt(productMinTxt.getText());
-        int max = Integer.parseInt(productMaxTxt.getText());
+        // Get input from the user
+        item.setId(Integer.parseInt(productIdTxt.getText()));
+        item.setName(productNameTxt.getText());
+        item.setPrice(Double.parseDouble(productPriceTxt.getText()));
+        item.setStock(Integer.parseInt(productInvTxt.getText()));
+        item.setMin(Integer.parseInt(productMinTxt.getText()));
+        item.setMax(Integer.parseInt(productMaxTxt.getText()));
 
         // get the items index
         int index = Inventory.getAllProducts().indexOf(item);
 
-        // updated the product item
-        Product newPart = new Product(id, name, price, stock, min, max);
-        Inventory.updateProduct(index, newPart);
+        Inventory.updateProduct(index, item);
 
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
     }
@@ -125,11 +146,20 @@ public class ModifyProductFormController extends SuperController implements Init
     /// Product Form Add/Remove Associated part methods
     @FXML
     void onActionAddPart(ActionEvent event) {
+        // get user input
+        Part selectedItem = partsTableView1.getSelectionModel().getSelectedItem();
+        // add the part to a new list
+        item.addAssociatedPart(selectedItem);
+        // display the new list
+        partsTableView2.setItems(item.getAllAssociatedParts());
 
     }
 
     @FXML
     void onActionRemovePart(ActionEvent event) {
+        // get user selected part
+        Part selectedItem = partsTableView2.getSelectionModel().getSelectedItem();
+        item.deleteAssociatedPart(selectedItem);
 
     }
 
@@ -146,13 +176,34 @@ public class ModifyProductFormController extends SuperController implements Init
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /////////// set the form with the user selected objects value
+        /////////// Product Form
+        // set the form with the user selected objects value
         productIdTxt.setText(String.valueOf(item.getId()));
         productNameTxt.setText(item.getName());
         productInvTxt.setText(String.valueOf(item.getStock()));
         productPriceTxt.setText(String.valueOf(item.getPrice()));
         productMaxTxt.setText(String.valueOf(item.getMax()));
         productMinTxt.setText(String.valueOf(item.getMin()));
+
+
+        ///////////// Parts TableView
+        // set the parts' tableview with the data it will be working with
+        partsTableView1.setItems(Inventory.getAllParts());
+
+        // set the columns with the data
+        partIdColumn1.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameColumn1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInventoryColumn1.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceColumn1.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        // set the second column with the associated parts
+        partsTableView2.setItems(item.getAllAssociatedParts());
+
+        // set the second columns with the data
+        partIdColumn2.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameColumn2.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInventoryColumn2.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceColumn2.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 }

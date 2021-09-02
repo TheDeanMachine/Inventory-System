@@ -119,7 +119,9 @@ public class Product {
     }
 
     public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
-
+        if(associatedParts.remove(selectedAssociatedPart)){
+            return true;
+        }
         return false;
     }
 
