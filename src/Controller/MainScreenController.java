@@ -15,10 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -105,20 +102,31 @@ public class MainScreenController extends SuperController implements Initializab
     void onActionSearchParts(ActionEvent event) {
         // get the users input
         String item = searchPartTxt.getText();
-        // create an empty list to hold the results
-        ObservableList<Part> foundParts = FXCollections.observableArrayList();
 
-        // search based on numeric or string input
-        if(isNumeric(item)) {
+        if(item == null || item.isBlank()){
+            partsTableView.setItems(Inventory.getAllParts());
+            return;
+        }
+        try {
             int anInt = Integer.parseInt(searchPartTxt.getText());
             Part itemReturned = Inventory.lookupPart(anInt);
-            foundParts.add(itemReturned);
-        }else {
+            if(itemReturned == null) {
+                throw new NumberFormatException();
+            }
+            partsTableView.getSelectionModel().select(itemReturned); //highlight
+        } catch (NumberFormatException e) {
+            ObservableList<Part> foundParts = FXCollections.observableArrayList();
             foundParts = Inventory.lookupPart(item);
+            if(foundParts.size() > 0 ) {
+                partsTableView.setItems(foundParts);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Part search results");
+                alert.setContentText("No Matching parts Found");
+                alert.showAndWait();
+            }
         }
 
-        // set the TableView with the found items
-        partsTableView.setItems(foundParts);
 
     }
 
