@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -101,59 +102,91 @@ public class MainScreenController extends SuperController implements Initializab
     @FXML
     void onActionSearchParts(ActionEvent event) {
         // get the users input
-        String item = searchPartTxt.getText();
+        String userString = searchPartTxt.getText();
 
-        if(item == null || item.isBlank()){
+        // after clearing the search bar display all current parts
+        if(userString == null || userString.isBlank()){
             partsTableView.setItems(Inventory.getAllParts());
+            partsTableView.getSelectionModel().clearSelection();
             return;
         }
+
         try {
-            int anInt = Integer.parseInt(searchPartTxt.getText());
-            Part itemReturned = Inventory.lookupPart(anInt);
-            if(itemReturned == null) {
+            // search by id
+            int parsedInt = Integer.parseInt(searchPartTxt.getText());
+            Part foundId = Inventory.lookupPart(parsedInt);
+
+            // if not found, search by name
+            if(foundId == null) {
                 throw new NumberFormatException();
             }
-            partsTableView.getSelectionModel().select(itemReturned); //highlight
+            // if found, highlight the found item
+            partsTableView.getSelectionModel().select(foundId);
+
         } catch (NumberFormatException e) {
-            ObservableList<Part> foundParts = FXCollections.observableArrayList();
-            foundParts = Inventory.lookupPart(item);
-            if(foundParts.size() > 0 ) {
-                partsTableView.setItems(foundParts);
+            // create an empty list to hold the results
+            ObservableList<Part> foundNames = FXCollections.observableArrayList();
+
+            // search by name
+            foundNames = Inventory.lookupPart(userString);
+
+            // if found display the list, else display a not found message
+            if(foundNames.size() > 0 ) {
+                partsTableView.setItems(foundNames);
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Part search results");
-                alert.setContentText("No Matching parts Found");
+                alert.setTitle("search results");
+                alert.setHeaderText("No matching parts found");
+                alert.setContentText("Try searching by part name or part id");
                 alert.showAndWait();
             }
         }
-
-
     }
 
     @FXML
     void onActionSearchProducts(ActionEvent event) {
+        // get the users input
+        String userString = searchProductTxt.getText();
+
+        // after clearing the search bar display all current parts
+        if(userString == null || userString.isBlank()){
+            productsTableView.setItems(Inventory.getAllProducts());
+            productsTableView.getSelectionModel().clearSelection();
+            return;
+        }
+
         try {
-            // get the users input
-            String item = searchProductTxt.getText();
-            // create an empty list to hold the results
-            ObservableList<Product> foundProducts = FXCollections.observableArrayList();
+            // search by id
+            int parsedInt = Integer.parseInt(searchProductTxt.getText());
+            Product foundId = Inventory.lookupProduct(parsedInt);
 
-            // search based on numeric or string input
-            if (isNumeric(item)) {
-                int anInt = Integer.parseInt(searchProductTxt.getText());
-                Product itemReturned = Inventory.lookupProduct(anInt);
-                foundProducts.add(itemReturned);
-            } else {
-                foundProducts = Inventory.lookupProduct(item);
+            // if not found, search by name
+            if(foundId == null) {
+                throw new NumberFormatException();
             }
+            // if found, highlight the found item
+            productsTableView.getSelectionModel().select(foundId);
 
-            // set the TableView with the new data
-            productsTableView.setItems(foundProducts);
+        } catch (NumberFormatException e) {
+            // create an empty list to hold the results
+            ObservableList<Product> foundNames = FXCollections.observableArrayList();
 
-        } catch (NullPointerException e) {
+            // search by name
+            foundNames = Inventory.lookupProduct(userString);
 
+            // if found display the list, else display a not found message
+            if(foundNames.size() > 0 ) {
+                productsTableView.setItems(foundNames);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("search results");
+                alert.setHeaderText("No matching products found");
+                alert.setContentText("Try searching by product name or product id");
+                alert.showAndWait();
+            }
         }
     }
+
 
 
     //// Part Screen Methods ////
