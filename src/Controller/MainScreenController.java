@@ -20,9 +20,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainScreenController extends SuperController implements Initializable {
@@ -192,9 +192,31 @@ public class MainScreenController extends SuperController implements Initializab
     //// Part Screen Methods ////
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        // get user selected part
-        Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(selectedItem);
+        // if the user selects the delete part button without selecting an item, display an alert box
+        if(partsTableView.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText("No selected item found");
+            alert.setContentText("PLease select an item to delete");
+            alert.showAndWait();
+            return;
+        }else {
+            // display a confirmation box for the users selected part to delete
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Are you sure you want to delete this Part?");
+            alert.setContentText("Press ok to delete, and cancel to go back");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                // get user selected part and delete it
+                Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
+                Inventory.deletePart(selectedItem);
+            } else {
+                return;
+            }
+        }
+
     }
 
     /**
@@ -212,16 +234,22 @@ public class MainScreenController extends SuperController implements Initializab
 
     @FXML
     void onActionDisplayModifyPartForm() throws IOException {
-        // get user selected part
-        Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
-        // pass the item to part form
-        ModifyPartFormController.holdData(selectedItem);
+        // if the user selects the modify part button, without selecting an item display an alert box
+        if(partsTableView.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText("No selected item found");
+            alert.setContentText("PLease select an item to modify");
+            alert.showAndWait();
+            return;
+        }else {
+            // get user selected part
+            Part selectedItem = partsTableView.getSelectionModel().getSelectedItem();
+            // pass the item to part form
+            ModifyPartFormController.holdData(selectedItem);
+        }
 
         displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form");
-
-
-        // call the overloaded display method passing the selected item
-        //displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form", selectedItem);
     }
 
     @FXML
@@ -233,17 +261,48 @@ public class MainScreenController extends SuperController implements Initializab
     //// Product Screen Methods ////
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-        // get user selected part
-        Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(selectedItem);
+        // if the user selects the delete product button without selecting an item, display an alert box
+        if(productsTableView.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText("No selected item found");
+            alert.setContentText("PLease select an item to delete");
+            alert.showAndWait();
+            return;
+        }else {
+            // display a confirmation box for the users selected product to delete
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Are you sure you want to delete this Product?");
+            alert.setContentText("Press ok to delete, and cancel to go back");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // get user selected part
+                Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
+                Inventory.deleteProduct(selectedItem);
+            } else {
+                return;
+            }
+        }
     }
 
     @FXML
     void onActionDisplayModifyProductForm() throws IOException {
-        // get user selected part
-        Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
-        // pass the item to product form
-        ModifyProductFormController.holdData(selectedItem);
+        // if the user selects the modify product button, without selecting an item display an alert box
+        if(productsTableView.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText("No selected item found");
+            alert.setContentText("PLease select an item to modify");
+            alert.showAndWait();
+            return;
+        }else {
+            // get user selected part
+            Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
+            // pass the item to product form
+            ModifyProductFormController.holdData(selectedItem);
+        }
 
         displayNewScreen(modifyProductButton, "/View/ModifyProductForm.fxml", "Product Form");
     }

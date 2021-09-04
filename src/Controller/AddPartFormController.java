@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
+
 
 public class AddPartFormController extends SuperController implements Initializable {
 
@@ -115,40 +115,6 @@ public class AddPartFormController extends SuperController implements Initializa
         machineCompanyLabel.setText("Company Name");
     }
 
-
-//
-//    public static void storeID(int inputFile) {
-//        PrintWriter outputFile = null;
-//        try {
-//            outputFile = new PrintWriter("uniqueID.txt");
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        outputFile.println(inputFile);
-//        outputFile.close();
-//    }
-//
-//    public static int generateID(){
-//        File file = new File("uniqueID.txt");
-//        Scanner inputFile = null;
-//        try {
-//            inputFile = new Scanner(file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Read the first line from the file.
-//        int line = inputFile.nextInt();
-//
-//        //increment the number by one write to the file
-//        line++;
-//        storeID(line);
-//
-//        // Close the file.
-//        inputFile.close();
-//
-//        return line;
-//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

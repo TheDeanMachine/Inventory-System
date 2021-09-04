@@ -5,15 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ModifyProductFormController extends SuperController implements Initializable {
@@ -99,21 +96,45 @@ public class ModifyProductFormController extends SuperController implements Init
     @FXML
     void onActionSearchParts(ActionEvent event) {
         // get the users input
-        String item = partSearchTxt.getText();
-        // create an empty list to hold the results
-        ObservableList<Part> foundParts = FXCollections.observableArrayList();
+        String userString = partSearchTxt.getText();
 
-        // search based on numeric or string input
-        if (isNumeric(item)) {
-            int anInt = Integer.parseInt(partSearchTxt.getText());
-            Part itemReturned = Inventory.lookupPart(anInt);
-            foundParts.add(itemReturned);
-        } else {
-            foundParts = Inventory.lookupPart(item);
+        // after clearing the search bar display all current parts
+        if(userString == null || userString.isBlank()){
+            partsTableView1.setItems(Inventory.getAllParts());
+            partsTableView1.getSelectionModel().clearSelection();
+            return;
         }
 
-        // set the TableView with the found items
-        partsTableView1.setItems(foundParts);
+        try {
+            // search by id
+            int parsedInt = Integer.parseInt(partSearchTxt.getText());
+            Part foundId = Inventory.lookupPart(parsedInt);
+
+            // if not found, search by name
+            if(foundId == null) {
+                throw new NumberFormatException();
+            }
+            // if found, highlight the found item
+            partsTableView1.getSelectionModel().select(foundId);
+
+        } catch (NumberFormatException e) {
+            // create an empty list to hold the results
+            ObservableList<Part> foundNames = FXCollections.observableArrayList();
+
+            // search by name
+            foundNames = Inventory.lookupPart(userString);
+
+            // if found display the list, else display a not found message
+            if(foundNames.size() > 0 ) {
+                partsTableView1.setItems(foundNames);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("search results");
+                alert.setHeaderText("No matching parts found");
+                alert.setContentText("Try searching by part name or part id");
+                alert.showAndWait();
+            }
+        }
     }
 
 
@@ -146,21 +167,50 @@ public class ModifyProductFormController extends SuperController implements Init
     /// Product Form Add/Remove Associated part methods
     @FXML
     void onActionAddPart(ActionEvent event) {
-        // get user input
-        Part selectedItem = partsTableView1.getSelectionModel().getSelectedItem();
-        // add the part to a new list
-        item.addAssociatedPart(selectedItem);
-        // display the new list
-        partsTableView2.setItems(item.getAllAssociatedParts());
-
+        // if the user selects the add part button without selecting an item, display an alert box
+        if(partsTableView1.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText("No selected item found");
+            alert.setContentText("PLease select an item to add");
+            alert.showAndWait();
+            return;
+        }else {
+            // get user input
+            Part selectedItem = partsTableView1.getSelectionModel().getSelectedItem();
+            // add the part to a new list
+            item.addAssociatedPart(selectedItem);
+            // display the new list
+            partsTableView2.setItems(item.getAllAssociatedParts());
+        }
     }
 
     @FXML
     void onActionRemovePart(ActionEvent event) {
-        // get user selected part
-        Part selectedItem = partsTableView2.getSelectionModel().getSelectedItem();
-        item.deleteAssociatedPart(selectedItem);
+        // if the user selects the remove part button without selecting an item, display an alert box
+        if(partsTableView2.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText("No selected item found");
+            alert.setContentText("PLease select an item to remove");
+            alert.showAndWait();
+            return;
+        } else {
+            // display a confirmation box for the users selected part to remove
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Are you sure you want to remove this Part?");
+            alert.setContentText("Press ok to remove, and cancel to go back");
 
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // get user selected part and remove it
+                Part selectedItem = partsTableView2.getSelectionModel().getSelectedItem();
+                item.deleteAssociatedPart(selectedItem);
+            } else {
+                return;
+            }
+        }
     }
 
 
