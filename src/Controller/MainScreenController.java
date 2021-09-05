@@ -277,10 +277,23 @@ public class MainScreenController extends SuperController implements Initializab
             alert.setContentText("Press ok to delete, and cancel to go back");
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
+            if(result.get() == ButtonType.OK) {
                 // get user selected part
                 Product selectedItem = productsTableView.getSelectionModel().getSelectedItem();
-                Inventory.deleteProduct(selectedItem);
+
+                // if the product has no associated parts, delete the product.
+                // else display warning message stating you cannot delete
+                if(selectedItem.getAllAssociatedParts().isEmpty()){
+                    Inventory.deleteProduct(selectedItem);
+                }else {
+                    Alert associatedPartsFound = new Alert(Alert.AlertType.WARNING);
+                    associatedPartsFound.setTitle("Warning Dialog");
+                    associatedPartsFound.setHeaderText("Associated parts found");
+                    associatedPartsFound.setContentText("The Product you are trying to delete has associated parts \n" +
+                            "please remove the parts first then delete the product");
+                    associatedPartsFound.showAndWait();
+                }
+
             } else {
                 return;
             }

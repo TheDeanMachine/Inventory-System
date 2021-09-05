@@ -65,35 +65,108 @@ public class AddPartFormController extends SuperController implements Initializa
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
 
+        int id = generateID();
+
+        // Get Input from user in the following fields
+        String name = null;
         try {
-            // Get Input from user
-            //int id = Integer.parseInt(parIdTxt.getText());
-            int id = generateID();
-            String name = partNameTxt.getText();
-            double price = Double.parseDouble(partPriceTxt.getText());
-            int stock = Integer.parseInt(partInvTxt.getText());
-            int min = Integer.parseInt(partMinTxt.getText());
-            int max = Integer.parseInt(partMaxTxt.getText());
-
-            // Distinguish between which radio button input was selected and add part to part list
-            if (inHouseRadioButton.isSelected()) {
-                int machineId = Integer.parseInt(machineCompanyTxt.getText());
-                InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
-                Inventory.addPart(newPart);
-            } else {
-                String companyName = machineCompanyTxt.getText();
-                Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
-                Inventory.addPart(newPart);
+            name = partNameTxt.getText();
+            if(!name.matches("^[a-zA-Z]*$")) {
+                throw new Exception();
             }
-
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
-            alert.setHeaderText("Number Format Exception");
-            alert.setContentText("Please provide numeric digits for: \n" + "Inventory, Price, Min, Max, MachineID");
+            alert.setHeaderText("Name Format Error");
+            alert.setContentText("Please provide character strings only");
             alert.showAndWait();
             return;
         }
+
+        double price = 0;
+        try {
+            price = Double.parseDouble(partPriceTxt.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Price Format Error");
+            alert.setContentText("Please provide a numeric digits only. \n" +
+                            "You may include a decimal point" );
+            alert.showAndWait();
+            return;
+        }
+
+        int stock = 0;
+        try {
+            stock = Integer.parseInt(partInvTxt.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Inventory Format Error");
+            alert.setContentText("Please provide whole numbers only");
+            alert.showAndWait();
+            return;
+        }
+
+        int min = 0;
+        try {
+            min = Integer.parseInt(partMinTxt.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Min Inventory Format Error");
+            alert.setContentText("Please provide whole numbers only");
+            alert.showAndWait();
+            return;
+        }
+
+        int max = 0;
+        try {
+            max = Integer.parseInt(partMaxTxt.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Max Inventory Format Error");
+            alert.setContentText("Please provide whole numbers only");
+            alert.showAndWait();
+            return;
+        }
+
+
+        // Distinguish between which radio button input was selected and add part to part list
+        if (inHouseRadioButton.isSelected()) {
+            int machineId = 0;
+            try {
+                machineId = Integer.parseInt(machineCompanyTxt.getText());
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Machine ID Format Error");
+                alert.setContentText("Please provide whole numbers only");
+                alert.showAndWait();
+                return;
+            }
+            InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
+            Inventory.addPart(newPart);
+        } else {
+            String companyName = null;
+            try {
+                companyName = machineCompanyTxt.getText();
+                if(!companyName.matches("^[a-zA-Z]*$")) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Company Name Format Error");
+                alert.setContentText("Please provide character strings only");
+                alert.showAndWait();
+                return;
+            }
+            Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
+            Inventory.addPart(newPart);
+        }
+
 
         // display the new screen
         displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
