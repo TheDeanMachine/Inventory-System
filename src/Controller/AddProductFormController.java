@@ -141,13 +141,86 @@ public class AddProductFormController extends SuperController implements Initial
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
 
-        // Get input from user and set the temp object with data
+        // Create alert objects, to be set in the following catch blocks
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+
+        // Get input from the user in the following fields and check for input validation
+        String name = null;
+        try {
+            name = productNameTxt.getText();
+            if(!name.matches("^[a-z A-Z]*$")) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            errorAlert.setHeaderText("Name Format Error");
+            errorAlert.setContentText("Please provide character strings only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        double price = 0;
+        try {
+            price = Double.parseDouble(productPriceTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Price Format Error");
+            errorAlert.setContentText("Please provide a numeric digits only. \n" +
+                    "You may include a decimal point" );
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int stock = 0;
+        try {
+            stock = Integer.parseInt(productInvTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int min = 0;
+        try {
+            min = Integer.parseInt(productMinTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Min Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int max = 0;
+        try {
+            max = Integer.parseInt(productMaxTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Max Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        // logical check for inventory levels
+        if (min > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The minimum inventory level cannot not be greater then the maximum inventory");
+            warningAlert.showAndWait();
+            return;
+        }
+        if (stock < min || stock > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The current inventory must be between the min and max values");
+            warningAlert.showAndWait();
+            return;
+        }
+
+        // update the item with the changes
         tempProduct.setId(generateID());
-        tempProduct.setName(productNameTxt.getText());
-        tempProduct.setPrice(Double.parseDouble(productPriceTxt.getText()));
-        tempProduct.setStock(Integer.parseInt(productInvTxt.getText()));
-        tempProduct.setMin(Integer.parseInt(productMinTxt.getText()));
-        tempProduct.setMax(Integer.parseInt(productMaxTxt.getText()));
+        tempProduct.setName(name);
+        tempProduct.setPrice(price);
+        tempProduct.setStock(stock);
+        tempProduct.setMin(min);
+        tempProduct.setMax(max);
 
         // add the object to the product list
         Inventory.addProduct(tempProduct);

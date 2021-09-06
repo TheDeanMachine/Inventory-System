@@ -64,24 +64,116 @@ public class ModifyPartFormController extends SuperController implements Initial
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
 
-        // Get Input from user
+        // Create alert objects, to be set in the following catch blocks
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+
+        // Displays the unique id, but does not allow for modification
         int id = Integer.parseInt(parIdTxt.getText());
-        String name = partNameTxt.getText();
-        double price = Double.parseDouble(partPriceTxt.getText());
-        int stock = Integer.parseInt(partInvTxt.getText());
-        int min = Integer.parseInt(partMinTxt.getText());
-        int max = Integer.parseInt(partMaxTxt.getText());
+
+        // Get input from the user in the following fields and check for input validation
+        String name = null;
+        try {
+            name = partNameTxt.getText();
+            if(!name.matches("^[a-z A-Z]*$")) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            errorAlert.setHeaderText("Name Format Error");
+            errorAlert.setContentText("Please provide character strings only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        double price = 0;
+        try {
+            price = Double.parseDouble(partPriceTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Price Format Error");
+            errorAlert.setContentText("Please provide a numeric digits only. \n" +
+                    "You may include a decimal point" );
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int stock = 0;
+        try {
+            stock = Integer.parseInt(partInvTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int min = 0;
+        try {
+            min = Integer.parseInt(partMinTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Min Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int max = 0;
+        try {
+            max = Integer.parseInt(partMaxTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Max Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        // logical check for inventory levels
+        if (min > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The minimum inventory level cannot not be greater then the maximum inventory");
+            warningAlert.showAndWait();
+            return;
+        }
+        if (stock < min || stock > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The current inventory must be between the min and max values");
+            warningAlert.showAndWait();
+            return;
+        }
 
         // get the items index
         int index = Inventory.getAllParts().indexOf(item);
 
         // Distinguish between which part the item belong to and add update the part
         if (item instanceof InHouse) {
-            int machineId = Integer.parseInt(machineCompanyTxt.getText());
+            int machineId = 0;
+            // input validation
+            try {
+                machineId = Integer.parseInt(machineCompanyTxt.getText());
+            } catch (NumberFormatException e) {
+                errorAlert.setHeaderText("Machine ID Format Error");
+                errorAlert.setContentText("Please provide whole numbers only");
+                errorAlert.showAndWait();
+                return;
+            }
+
             InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
             Inventory.updatePart(index, newPart);
+
         } else {
-            String companyName = machineCompanyTxt.getText();
+            String companyName = null;
+            // input validation
+            try {
+                companyName = machineCompanyTxt.getText();
+                if(!companyName.matches("^[a-z A-Z]*$")) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                errorAlert.setHeaderText("Company Name Format Error");
+                errorAlert.setContentText("Please provide character strings only");
+                errorAlert.showAndWait();
+                return;
+            }
+
             Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.updatePart(index, newPart);
         }

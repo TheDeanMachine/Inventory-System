@@ -65,21 +65,24 @@ public class AddPartFormController extends SuperController implements Initializa
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
 
+        // Create alert objects, to be set in the following catch blocks
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+
+        // creates uniques ud
         int id = generateID();
 
-        // Get Input from user in the following fields
+        // Get input from the user in the following fields and check for input validation
         String name = null;
         try {
             name = partNameTxt.getText();
-            if(!name.matches("^[a-zA-Z]*$")) {
+            if(!name.matches("^[a-z \\d A-Z]*$")) {
                 throw new Exception();
             }
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Name Format Error");
-            alert.setContentText("Please provide character strings only");
-            alert.showAndWait();
+            errorAlert.setHeaderText("Name Format Error");
+            errorAlert.setContentText("Please provide character strings only");
+            errorAlert.showAndWait();
             return;
         }
 
@@ -87,12 +90,10 @@ public class AddPartFormController extends SuperController implements Initializa
         try {
             price = Double.parseDouble(partPriceTxt.getText());
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Price Format Error");
-            alert.setContentText("Please provide a numeric digits only. \n" +
+            errorAlert.setHeaderText("Price Format Error");
+            errorAlert.setContentText("Please provide a numeric digits only. \n" +
                             "You may include a decimal point" );
-            alert.showAndWait();
+            errorAlert.showAndWait();
             return;
         }
 
@@ -100,11 +101,9 @@ public class AddPartFormController extends SuperController implements Initializa
         try {
             stock = Integer.parseInt(partInvTxt.getText());
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Inventory Format Error");
-            alert.setContentText("Please provide whole numbers only");
-            alert.showAndWait();
+            errorAlert.setHeaderText("Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
             return;
         }
 
@@ -112,11 +111,9 @@ public class AddPartFormController extends SuperController implements Initializa
         try {
             min = Integer.parseInt(partMinTxt.getText());
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Min Inventory Format Error");
-            alert.setContentText("Please provide whole numbers only");
-            alert.showAndWait();
+            errorAlert.setHeaderText("Min Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
             return;
         }
 
@@ -124,49 +121,60 @@ public class AddPartFormController extends SuperController implements Initializa
         try {
             max = Integer.parseInt(partMaxTxt.getText());
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Max Inventory Format Error");
-            alert.setContentText("Please provide whole numbers only");
-            alert.showAndWait();
+            errorAlert.setHeaderText("Max Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
             return;
         }
+
+        // logical check for inventory levels
+        if (min > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The minimum inventory level cannot not be greater then the maximum inventory");
+            warningAlert.showAndWait();
+            return;
+        }
+        if (stock < min || stock > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The current inventory must be between the min and max values");
+            warningAlert.showAndWait();
+            return;
+        }
+
 
 
         // Distinguish between which radio button input was selected and add part to part list
         if (inHouseRadioButton.isSelected()) {
             int machineId = 0;
+            // input validation
             try {
                 machineId = Integer.parseInt(machineCompanyTxt.getText());
             } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setHeaderText("Machine ID Format Error");
-                alert.setContentText("Please provide whole numbers only");
-                alert.showAndWait();
+                errorAlert.setHeaderText("Machine ID Format Error");
+                errorAlert.setContentText("Please provide whole numbers only");
+                errorAlert.showAndWait();
                 return;
             }
             InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
             Inventory.addPart(newPart);
+
         } else {
             String companyName = null;
+            // input validation
             try {
                 companyName = machineCompanyTxt.getText();
-                if(!companyName.matches("^[a-zA-Z]*$")) {
+                if(!companyName.matches("^[a-z A-Z]*$")) {
                     throw new Exception();
                 }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setHeaderText("Company Name Format Error");
-                alert.setContentText("Please provide character strings only");
-                alert.showAndWait();
+                errorAlert.setHeaderText("Company Name Format Error");
+                errorAlert.setContentText("Please provide character strings only");
+                errorAlert.showAndWait();
                 return;
             }
             Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.addPart(newPart);
         }
-
 
         // display the new screen
         displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");

@@ -143,17 +143,94 @@ public class ModifyProductFormController extends SuperController implements Init
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
 
-        // Get input from the user
-        item.setId(Integer.parseInt(productIdTxt.getText()));
-        item.setName(productNameTxt.getText());
-        item.setPrice(Double.parseDouble(productPriceTxt.getText()));
-        item.setStock(Integer.parseInt(productInvTxt.getText()));
-        item.setMin(Integer.parseInt(productMinTxt.getText()));
-        item.setMax(Integer.parseInt(productMaxTxt.getText()));
+        // Create alert objects, to be set in the following catch blocks
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+
+        // Displays the unique id, but does not allow for modification
+        int id = Integer.parseInt(productIdTxt.getText());
+
+        // Get input from the user in the following fields and check for input validation
+        String name = null;
+        try {
+            name = productNameTxt.getText();
+            if(!name.matches("^[a-z A-Z]*$")) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            errorAlert.setHeaderText("Name Format Error");
+            errorAlert.setContentText("Please provide character strings only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        double price = 0;
+        try {
+            price = Double.parseDouble(productPriceTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Price Format Error");
+            errorAlert.setContentText("Please provide a numeric digits only. \n" +
+                    "You may include a decimal point" );
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int stock = 0;
+        try {
+            stock = Integer.parseInt(productInvTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int min = 0;
+        try {
+            min = Integer.parseInt(productMinTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Min Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        int max = 0;
+        try {
+            max = Integer.parseInt(productMaxTxt.getText());
+        } catch (NumberFormatException e) {
+            errorAlert.setHeaderText("Max Inventory Format Error");
+            errorAlert.setContentText("Please provide whole numbers only");
+            errorAlert.showAndWait();
+            return;
+        }
+
+        // logical check for inventory levels
+        if (min > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The minimum inventory level cannot not be greater then the maximum inventory");
+            warningAlert.showAndWait();
+            return;
+        }
+        if (stock < min || stock > max){
+            warningAlert.setHeaderText("Inventory Levels Incorrect");
+            warningAlert.setContentText("The current inventory must be between the min and max values");
+            warningAlert.showAndWait();
+            return;
+        }
+
+        // update the item with the changes
+        item.setId(id);
+        item.setName(name);
+        item.setPrice(price);
+        item.setStock(stock);
+        item.setMin(min);
+        item.setMax(max);
 
         // get the items index
         int index = Inventory.getAllProducts().indexOf(item);
 
+        // save the changes to the list
         Inventory.updateProduct(index, item);
 
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
