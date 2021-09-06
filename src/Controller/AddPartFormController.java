@@ -81,7 +81,7 @@ public class AddPartFormController extends SuperController implements Initializa
             }
         } catch (Exception e) {
             errorAlert.setHeaderText("Name Format Error");
-            errorAlert.setContentText("Please provide character strings only");
+            errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
             errorAlert.showAndWait();
             return;
         }
@@ -163,12 +163,12 @@ public class AddPartFormController extends SuperController implements Initializa
             // input validation
             try {
                 companyName = machineCompanyTxt.getText();
-                if(!companyName.matches("^[a-z A-Z]*$")) {
+                if(!companyName.matches("^[a-z \\d A-Z]*$")) {
                     throw new Exception();
                 }
             } catch (Exception e) {
                 errorAlert.setHeaderText("Company Name Format Error");
-                errorAlert.setContentText("Please provide character strings only");
+                errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
                 errorAlert.showAndWait();
                 return;
             }

@@ -84,7 +84,10 @@ public class AddProductFormController extends SuperController implements Initial
     @FXML
     public Button addInventoryButton;
 
-    /// Product Form TextArea Fields fx:id ///
+    /**
+     * FUTURE ENHANCEMENT.
+     * Provides a brief description of producy
+     */
     @FXML
     private TextArea productTxtArea;
 
@@ -149,12 +152,12 @@ public class AddProductFormController extends SuperController implements Initial
         String name = null;
         try {
             name = productNameTxt.getText();
-            if(!name.matches("^[a-z A-Z]*$")) {
+            if(!name.matches("^[a-z \\d A-Z]*$")) {
                 throw new Exception();
             }
         } catch (Exception e) {
             errorAlert.setHeaderText("Name Format Error");
-            errorAlert.setContentText("Please provide character strings only");
+            errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
             errorAlert.showAndWait();
             return;
         }

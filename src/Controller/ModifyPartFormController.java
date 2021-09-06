@@ -75,12 +75,12 @@ public class ModifyPartFormController extends SuperController implements Initial
         String name = null;
         try {
             name = partNameTxt.getText();
-            if(!name.matches("^[a-z A-Z]*$")) {
+            if(!name.matches("^[a-z \\d A-Z]*$")) {
                 throw new Exception();
             }
         } catch (Exception e) {
             errorAlert.setHeaderText("Name Format Error");
-            errorAlert.setContentText("Please provide character strings only");
+            errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
             errorAlert.showAndWait();
             return;
         }
@@ -144,7 +144,7 @@ public class ModifyPartFormController extends SuperController implements Initial
         int index = Inventory.getAllParts().indexOf(item);
 
         // Distinguish between which part the item belong to and add update the part
-        if (item instanceof InHouse) {
+        if (inHouseRadioButton.isSelected()) {
             int machineId = 0;
             // input validation
             try {
@@ -155,7 +155,6 @@ public class ModifyPartFormController extends SuperController implements Initial
                 errorAlert.showAndWait();
                 return;
             }
-
             InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
             Inventory.updatePart(index, newPart);
 
@@ -164,16 +163,15 @@ public class ModifyPartFormController extends SuperController implements Initial
             // input validation
             try {
                 companyName = machineCompanyTxt.getText();
-                if(!companyName.matches("^[a-z A-Z]*$")) {
+                if(!companyName.matches("^[a-z \\d A-Z]*$")) {
                     throw new Exception();
                 }
             } catch (Exception e) {
                 errorAlert.setHeaderText("Company Name Format Error");
-                errorAlert.setContentText("Please provide character strings only");
+                errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
                 errorAlert.showAndWait();
                 return;
             }
-
             Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.updatePart(index, newPart);
         }
@@ -231,11 +229,13 @@ public class ModifyPartFormController extends SuperController implements Initial
         if (item instanceof InHouse) {
             machineCompanyTxt.setText(String.valueOf(((InHouse)item).getMachineId()));
             inHouseRadioButton.setSelected(true);
-            outSourcedRadioButton.setDisable(true);
+            //outSourcedRadioButton.setDisable(true);
+            machineCompanyLabel.setText("Machine ID");
         } else {
             machineCompanyTxt.setText(String.valueOf(((Outsourced)item).getCompanyName()));
             outSourcedRadioButton.setSelected(true);
-            inHouseRadioButton.setDisable(true);
+            //inHouseRadioButton.setDisable(true);
+            machineCompanyLabel.setText("Company Name");
         }
 
     }
