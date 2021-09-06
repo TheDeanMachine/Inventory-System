@@ -4,9 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Inventory Class, contains static methods and fields.
- * Contains two observable array list parts and products
- * with methods to access and modify those list.
+ * Inventory Class contains static methods and fields, it
+ * creates two observable array list parts and products
+ * with methods to access those list.
  */
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
@@ -30,8 +30,8 @@ public class Inventory {
 
     /**
      * Finds a part object in the ObservableList.
-     * @param partId Part objects ID
-     * @return the Part object if found matching ID
+     * @param partId Part objects ID to search
+     * @return the Part object if found matching ID, else return null
      */
    public static Part lookupPart(int partId) {
        for (Part item : allParts) {
@@ -42,8 +42,8 @@ public class Inventory {
    }
     /**
      * Finds a product object in the ObservableList.
-     * @param productId Product objects ID
-     * @return the Product object if found matching ID
+     * @param productId Product objects ID to search
+     * @return the Product object if found matching ID, else return null
      */
    public static Product lookupProduct(int productId) {
        for (Product item : allProducts) {
@@ -54,8 +54,8 @@ public class Inventory {
    }
     /**
      * Finds a part object in the ObservableList.
-     * @param partName Part objects name
-     * @return the Part observableArrayList if found matching name
+     * @param partName Part objects name to search for
+     * @return a new Part observableArrayList with matching names if found, else return empty list
      */
    public static ObservableList<Part> lookupPart(String partName) {
        // create an empty arraylist to hold the found parts
@@ -71,8 +71,8 @@ public class Inventory {
 
     /**
      * Finds a product object in the ObservableList.
-     * @param productName Products objects name
-     * @return the Products observableArrayList if found matching name
+     * @param productName Products objects name to search for
+     * @return a new Products observableArrayList with matching names if found, else return empty list
      */
    public static ObservableList<Product> lookupProduct(String productName) {
        // create an empty arraylist to hold the found parts
@@ -107,7 +107,7 @@ public class Inventory {
     /**
      * Deletes the selected part from the observableArrayList of Parts.
      * @param selectedPart the object to be deleted
-     * @return false if no part was found
+     * @return true if deleted, else return false if no part was found
      */
    public static boolean deletePart(Part selectedPart) {
        if(allParts.remove(selectedPart)) {
@@ -119,7 +119,7 @@ public class Inventory {
     /**
      * Deletes the Product from the observableArrayList of Products.
      * @param selectedProduct the object to be deleted
-     * @return false if no part was found
+     * @return true if deleted else, return false if no product was found
      */
    public static boolean deleteProduct(Product selectedProduct) {
        if(allProducts.remove(selectedProduct)){
@@ -129,6 +129,7 @@ public class Inventory {
    }
 
     /**
+     * Returns all parts.
      * @return the observableArrayList of Parts
      */
    public static ObservableList<Part> getAllParts(){
@@ -136,6 +137,7 @@ public class Inventory {
    }
 
     /**
+     * Returns all products.
      * @return the observableArrayList of Products
      */
    public static ObservableList<Product> getAllProducts() {

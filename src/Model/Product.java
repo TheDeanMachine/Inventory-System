@@ -3,7 +3,9 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
+/**
+ * The Product Class creates product objects.
+ */
 public class Product {
 
     ///Fields
@@ -113,11 +115,19 @@ public class Product {
         return max;
     }
 
-
+    /**
+     * Adds a part to the associated parts list.
+     * @param part the part to be added
+     */
     public void addAssociatedPart(Part part) {
         associatedParts.add(part);
     }
 
+    /**
+     * Deletes a part from the associated parts list.
+     * @param selectedAssociatedPart the part to be deleted
+     * @return true if deleted, else return false
+     */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
         if(associatedParts.remove(selectedAssociatedPart)){
             return true;
@@ -125,6 +135,10 @@ public class Product {
         return false;
     }
 
+    /**
+     * Gets all the associated parts.
+     * @return the associated parts list
+     */
     public ObservableList<Part> getAllAssociatedParts() {
         return associatedParts;
     }

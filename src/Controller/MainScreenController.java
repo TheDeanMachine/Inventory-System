@@ -1,10 +1,5 @@
 package Controller;
 
-/**
- * The Main Screen Class.
- * Displays two screens, one for parts and one for products
- */
-
 import Model.Inventory;
 import Model.Part;
 import Model.Product;
@@ -25,6 +20,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The Main Screen Class displays two screens, one for parts and one for products.
+ */
 public class MainScreenController extends SuperController implements Initializable {
 
     /// Part Form Search Field fx:id ///
@@ -92,13 +90,22 @@ public class MainScreenController extends SuperController implements Initializab
     @FXML
     private Button exitButton;
 
-    /// Exit Method ///
+    /**
+     * Exit Method.
+     */
     @FXML
     void onActionExitApplication(ActionEvent event) {
         Platform.exit();
     }
 
     /// Search Methods ///
+
+    /**
+     * Part Search method.
+     * Gets the users input and then searches by id. If it doesn't find it by id it searches by name.
+     * If it finds the part by id, it highlights the item, if it finds by name then
+     * it displays a list of found parts, else display a not found message.
+     */
     @FXML
     void onActionSearchParts(ActionEvent event) {
         // get the users input
@@ -143,6 +150,12 @@ public class MainScreenController extends SuperController implements Initializab
         }
     }
 
+    /**
+     * Products Search method.
+     * Gets the users input and then searches by id. If it doesn't find it by id it searches by name.
+     * If it finds the product by id, it highlights the item, if it finds by name then
+     * it displays a list of found products, else display a not found message.
+     */
     @FXML
     void onActionSearchProducts(ActionEvent event) {
         // get the users input
@@ -190,6 +203,12 @@ public class MainScreenController extends SuperController implements Initializab
 
 
     //// Part Screen Methods ////
+
+    /**
+     * Delete Part Method.
+     * Once the user selects an item to delete the method deletes the item, but first displays
+     * a confirmation message asking the user if they want to delete this part.
+     */
     @FXML
     void onActionDeletePart(ActionEvent event) {
         // if the user selects the delete part button without selecting an item, display an alert box
@@ -228,10 +247,13 @@ public class MainScreenController extends SuperController implements Initializab
      * The next solution was to create a static method in the part form controller
      * and then pass the item to it, that way on initialize I could populate the
      * form with the data.
-     *
-     * @throws IOException
      */
 
+    /**
+     * Modify Part Method.
+     *
+     * @throws IOException catches IO errors.
+     */
     @FXML
     void onActionDisplayModifyPartForm() throws IOException {
         // if the user selects the modify part button, without selecting an item display an alert box

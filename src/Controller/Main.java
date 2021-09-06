@@ -10,8 +10,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The Main Class.
+ * Creates an inventory management application with parts and products.
+ */
 public class Main extends Application {
 
+    /**
+     * The start method.
+     * This is an overridden method that is implemented through the application class, starts JavaFX.
+     * @param primaryStage The main stage
+     * @throws Exception Catches IO Errors
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
@@ -20,7 +30,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * The main method.
+     * Contains preloaded objects for part and product.
+     * @param args Contains the code for the main method.
+     */
     public static void main(String[] args) {
 
         // Add initial data to the parts TableView

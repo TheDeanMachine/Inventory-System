@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * Outsourced Class creates Outsourced objects.
+ */
 public class Outsourced extends Part {
 
     private String companyName;
@@ -9,10 +12,18 @@ public class Outsourced extends Part {
         this.companyName = companyName;
     }
 
+    /**
+     * Sets the company name.
+     * @param companyName the value to be set
+     */
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 
+    /**
+     * Returns company name value.
+     * @return the company name value
+     */
     public String getCompanyName() {
         return companyName;
     }
