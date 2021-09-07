@@ -19,8 +19,8 @@ public class Main extends Application {
     /**
      * The start method.
      * This is an overridden method that is implemented through the application class, starts JavaFX.
-     * @param primaryStage The main stage
-     * @throws Exception Catches IO Errors
+     * @param primaryStage The main stage.
+     * @throws Exception Catches IO Errors.
      */
     @Override
     public void start(Stage primaryStage) throws Exception {

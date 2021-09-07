@@ -20,10 +20,10 @@ public abstract class SuperController {
 
     /**
      * Method for switching screens on button clicks.
-     * @param node the placement holder for the type of button being passed in
-     * @param locationString the location of the next screen
-     * @param setTitle the title of the next screen
-     * @throws IOException catches IO errors
+     * @param node the placement holder for the type of button being passed in.
+     * @param locationString the location of the next screen.
+     * @param setTitle the title of the next screen.
+     * @throws IOException catches IO errors.
      */
     public void displayNewScreen(Node node, String locationString, String setTitle) throws IOException {
         stage = (Stage)(node).getScene().getWindow();
@@ -35,7 +35,7 @@ public abstract class SuperController {
 
     /**
      * Generates an id for parts/products.
-     * @return an incremented id
+     * @return an incremented id.
      */
     public static int generateID(){
         uniqueID++;

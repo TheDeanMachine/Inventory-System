@@ -60,13 +60,12 @@ public class ModifyPartFormController extends SuperController implements Initial
     @FXML
     public Button saveButton;
 
-
     /**
      * Save Part Method.
      * This method loads input data that the user previously entered and displays it. It allows for the user
      * to make and save those changes to the parts list. Like the add part form this method also performs
      * input validation on the users entries.
-     * @throws IOException catches IO errors
+     * @throws IOException catches IO errors.
      */
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
@@ -190,7 +189,7 @@ public class ModifyPartFormController extends SuperController implements Initial
     /**
      * Cancel method.
      * Displays the main screen, without saving work.
-     * @throws IOException catches IO errors
+     * @throws IOException catches IO errors.
      */
     @FXML
     void onActionCancelDisplayMainScreen() throws IOException {
@@ -213,12 +212,12 @@ public class ModifyPartFormController extends SuperController implements Initial
         machineCompanyLabel.setText("Company Name");
     }
 
-    // field for holding the passed item
+    // field for holding the passed item object
     private static Part item = null;
 
     /**
      * Method for catching the passed part from main controller.
-     * @param selectedPart the object that was passed in
+     * @param selectedPart the object that was passed in.
      */
     public static void holdData(Part selectedPart) {
         item = selectedPart;
@@ -243,7 +242,7 @@ public class ModifyPartFormController extends SuperController implements Initial
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /////////// set the form with the user selected objects value
+        // set the form with the user selected objects value
         parIdTxt.setText(String.valueOf(item.getId()));
         partNameTxt.setText(item.getName());
         partInvTxt.setText(String.valueOf(item.getStock()));
@@ -262,7 +261,6 @@ public class ModifyPartFormController extends SuperController implements Initial
             //inHouseRadioButton.setDisable(true);
             machineCompanyLabel.setText("Company Name");
         }
-
     }
 
 }

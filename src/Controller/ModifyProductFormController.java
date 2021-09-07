@@ -41,7 +41,6 @@ public class ModifyProductFormController extends SuperController implements Init
     @FXML
     private TextField productMaxTxt;
 
-
     /// Product Form, Parts TableView Fields fx:id ///
     @FXML
     private TableView<Part> partsTableView1;
@@ -57,7 +56,6 @@ public class ModifyProductFormController extends SuperController implements Init
 
     @FXML
     private TableColumn<Part, Double> partPriceColumn1;
-
 
     /// Product Form, Associated Parts TableView Fields fx:id ///
     @FXML
@@ -150,7 +148,7 @@ public class ModifyProductFormController extends SuperController implements Init
      * This method loads input data that the user previously entered and displays it. It allows for the user
      * to make and save those changes to the products list. Like the add product form this method also performs
      * input validation on the users entries.
-     * @throws IOException catches IO errors
+     * @throws IOException catches IO errors.
      */
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
@@ -251,14 +249,19 @@ public class ModifyProductFormController extends SuperController implements Init
     /**
      * Cancel method.
      * Displays the main screen, without saving work.
-     * @throws IOException catches IO errors
+     * @throws IOException catches IO errors.
      */
     @FXML
     void onActionCancelDisplayMainScreen() throws IOException {
        displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
-    /// Product Form Add/Remove Associated part methods
+    /**
+     * Add Associate parts method.
+     * This method gets the users input from the parts list then
+     * adds it to a new list and displays it in the second tableview.
+     * This associates the part with the product.
+     */
     @FXML
     void onActionAddPart(ActionEvent event) {
         // if the user selects the add part button without selecting an item, display an alert box
@@ -279,6 +282,11 @@ public class ModifyProductFormController extends SuperController implements Init
         }
     }
 
+    /**
+     * Remove Associate Part Method.
+     * This method gets the users input from the second tableview of parts lists
+     * then removes(disassociates) the part from the product.
+     */
     @FXML
     void onActionRemovePart(ActionEvent event) {
         // if the user selects the remove part button without selecting an item, display an alert box
@@ -307,13 +315,12 @@ public class ModifyProductFormController extends SuperController implements Init
         }
     }
 
-
-    // field for holding the passed item
+    // field for holding the passed item object
     private static Product item = null;
 
     /**
-     * Method for catching the passed part from main controller.
-     * @param selectedPart the object that was passed in
+     * Method for catching the passed product from the main controller.
+     * @param selectedPart the object that was passed in.
      */
     public static void holdData(Product selectedPart) {
         item = selectedPart;

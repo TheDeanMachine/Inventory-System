@@ -7,6 +7,7 @@ public class InHouse extends Part {
 
     private int machineId;
 
+    // constructor
     public InHouse(int id, String name, double price, int stock, int min, int max, int machineId) {
         super(id, name, price, stock, min, max);
         this.machineId = machineId;
@@ -14,7 +15,7 @@ public class InHouse extends Part {
 
     /**
      * Sets the machine id value.
-     * @param machineId the value to be set
+     * @param machineId the value to be set.
      */
     public void setMachineId(int machineId) {
         this.machineId = machineId;
@@ -22,7 +23,7 @@ public class InHouse extends Part {
 
     /**
      * Gets the machine id value.
-     * @return the machine id value
+     * @return the machine id value.
      */
     public int getMachineId() {
         return machineId;

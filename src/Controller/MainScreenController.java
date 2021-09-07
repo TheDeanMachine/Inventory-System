@@ -57,7 +57,6 @@ public class MainScreenController extends SuperController implements Initializab
     public Button addPartButton;
 
 
-
     /// Product Form Search Fields fx:id ///
     @FXML
     private TextField searchProductTxt;
@@ -201,8 +200,6 @@ public class MainScreenController extends SuperController implements Initializab
         }
     }
 
-
-
     //// Part Screen Methods ////
 
     /**
@@ -254,7 +251,6 @@ public class MainScreenController extends SuperController implements Initializab
      * Modify Part Method.
      * Once the user selects an item to modify, the modify part screen loads with the data
      * for that object populated in the text fields.
-     *
      * @throws IOException catches IO errors.
      */
     @FXML
@@ -286,7 +282,6 @@ public class MainScreenController extends SuperController implements Initializab
     void onActionDisplayAddPartForm() throws IOException {
         displayNewScreen(addPartButton, "/View/AddPartForm.fxml", "Add Part Form");
     }
-
 
     //// Product Screen Methods ////
 
@@ -342,7 +337,6 @@ public class MainScreenController extends SuperController implements Initializab
      * Modify Product Method.
      * Once the user selects an item to modify, the modify product screen loads with the data
      * for that object populated in the text fields.
-     *
      * @throws IOException catches IO errors.
      */
     @FXML
@@ -405,7 +399,6 @@ public class MainScreenController extends SuperController implements Initializab
 
 
     }
-
 
 }
 

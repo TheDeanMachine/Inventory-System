@@ -40,6 +40,7 @@ public class Inventory {
        }
        return null;
    }
+
     /**
      * Finds a product object in the ObservableList.
      * @param productId Product objects ID to search
@@ -52,6 +53,7 @@ public class Inventory {
        }
        return null;
    }
+
     /**
      * Finds a part object in the ObservableList.
      * @param partName Part objects name to search for

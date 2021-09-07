@@ -65,7 +65,7 @@ public class AddPartFormController extends SuperController {
      * Add Part Method.
      * This method takes input data from the user and preforms input validation. It
      * then creates an object with those values and adds that object to the parts list.
-     * @throws IOException catches IO errors
+     * @throws IOException catches IO errors.
      */
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
@@ -182,7 +182,6 @@ public class AddPartFormController extends SuperController {
             Inventory.addPart(newPart);
         }
 
-        // display the new screen
         displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
     }
 

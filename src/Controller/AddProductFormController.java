@@ -13,7 +13,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**
+ *  The Controller class for the add product form.
+ *  The add product class loads a blank form for the user to enter values into.
+ */
 public class AddProductFormController extends SuperController implements Initializable {
 
     /// Product Form Text Fields fx:id ///
@@ -92,9 +95,15 @@ public class AddProductFormController extends SuperController implements Initial
     private TextArea productTxtArea;
 
 
-    //Product instance, will have its parameters set in a later method
+    // Product instance, will have its parameters set in a later method
     Product tempProduct = new Product(0, "", 0, 0, 0, 0);
 
+    /**
+     * Part Search Method.
+     * Gets the users input and then searches by id. If it doesn't find it by id it then searches by name.
+     * If it finds the part by id, it highlights the item, if it finds the part by name then
+     * it displays a list of found parts, else display a not found message.
+     */
     @FXML
     void onActionSearchParts(ActionEvent event) {
         // get the users input
@@ -139,8 +148,12 @@ public class AddProductFormController extends SuperController implements Initial
         }
     }
 
-
-    /// Product Form change screen methods
+    /**
+     * Add Product Method.
+     * This method takes input data from the user and preforms input validation. It
+     * then creates an object with those values and adds that object to the product list.
+     * @throws IOException catches IO errors.
+     */
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
 
@@ -231,12 +244,22 @@ public class AddProductFormController extends SuperController implements Initial
        displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
+    /**
+     * Cancel method.
+     * Displays the main screen, without saving work.
+     * @throws IOException catches IO errors.
+     */
     @FXML
     void onActionCancelDisplayMainScreen() throws IOException {
        displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
-    /// Product Form Add/Remove Associated part methods
+    /**
+     * Add Associate parts method.
+     * This method gets the users input from the parts list then
+     * adds it to a new list and displays it in the second tableview.
+     * This associates the part with the product.
+     */
     @FXML
     void onActionAddPart(ActionEvent event) {
         // if the user selects the add part button without selecting an item, display an alert box
@@ -257,6 +280,11 @@ public class AddProductFormController extends SuperController implements Initial
         }
     }
 
+    /**
+     * Remove Associate Part Method.
+     * This method gets the users input from the second tableview of parts lists
+     * then removes(disassociates) the part from the product.
+     */
     @FXML
     void onActionRemovePart(ActionEvent event) {
         // if the user selects the remove part button without selecting an item, display an alert box
@@ -285,6 +313,12 @@ public class AddProductFormController extends SuperController implements Initial
         }
     }
 
+    /**
+     * Initialize Method.
+     * This method is from the interface Initializable, and is overridden here.
+     * The method is loaded(initialized) when this controller gets called.
+     * It contains instructions to set TableViews with the data that they will be working with.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //generateID();
@@ -303,7 +337,6 @@ public class AddProductFormController extends SuperController implements Initial
         partNameColumn2.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInventoryColumn2.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceColumn2.setCellValueFactory(new PropertyValueFactory<>("price"));
-
 
     }
 
