@@ -153,12 +153,12 @@ public class ModifyProductFormController extends SuperController implements Init
         String name = null;
         try {
             name = productNameTxt.getText();
-            if(!name.matches("^[a-z \\d A-Z]*$")) {
+            if(name == null || name.isBlank()){
                 throw new Exception();
             }
         } catch (Exception e) {
             errorAlert.setHeaderText("Name Format Error");
-            errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
+            errorAlert.setContentText("Please provide a product name");
             errorAlert.showAndWait();
             return;
         }

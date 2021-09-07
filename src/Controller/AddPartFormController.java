@@ -76,12 +76,13 @@ public class AddPartFormController extends SuperController implements Initializa
         String name = null;
         try {
             name = partNameTxt.getText();
-            if(!name.matches("^[a-z \\d A-Z]*$")) {
+            //if(!name.matches("^[a-z \\d A-Z]*$")) {
+            if(name == null || name.isBlank()){
                 throw new Exception();
             }
         } catch (Exception e) {
             errorAlert.setHeaderText("Name Format Error");
-            errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
+            errorAlert.setContentText("Please provide a part name");
             errorAlert.showAndWait();
             return;
         }
@@ -163,12 +164,12 @@ public class AddPartFormController extends SuperController implements Initializa
             // input validation
             try {
                 companyName = machineCompanyTxt.getText();
-                if(!companyName.matches("^[a-z \\d A-Z]*$")) {
+                if(companyName == null || companyName.isBlank()){
                     throw new Exception();
                 }
             } catch (Exception e) {
                 errorAlert.setHeaderText("Company Name Format Error");
-                errorAlert.setContentText("Please provide numbers or characters only \nNO special characters");
+                errorAlert.setContentText("Please provide a company name");
                 errorAlert.showAndWait();
                 return;
             }
