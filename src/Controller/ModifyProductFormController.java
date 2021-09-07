@@ -13,6 +13,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ *  The Controller class for the modify product form.
+ *  The modify product class loads the values of a previously added product and allows for modification of that product.
+ */
 public class ModifyProductFormController extends SuperController implements Initializable {
 
     /// Product Form Text Fields fx:id ///
@@ -91,7 +95,12 @@ public class ModifyProductFormController extends SuperController implements Init
     @FXML
     private TextArea productTxtArea;
 
-
+    /**
+     * Part Search method.
+     * Gets the users input and then searches by id. If it doesn't find it by id it then searches by name.
+     * If it finds the part by id, it highlights the item, if it finds the part by name then
+     * it displays a list of found parts, else display a not found message.
+     */
     @FXML
     void onActionSearchParts(ActionEvent event) {
         // get the users input
@@ -136,9 +145,13 @@ public class ModifyProductFormController extends SuperController implements Init
         }
     }
 
-
-
-    /// Product Form change screen methods
+    /**
+     * Save Product Method.
+     * This method loads input data that the user previously entered and displays it. It allows for the user
+     * to make and save those changes to the products list. Like the add product form this method also performs
+     * input validation on the users entries.
+     * @throws IOException catches IO errors
+     */
     @FXML
     void onActionSaveDisplayMainScreen() throws IOException {
 
@@ -226,7 +239,7 @@ public class ModifyProductFormController extends SuperController implements Init
         item.setMin(min);
         item.setMax(max);
 
-        // get the items index
+        // get the items index for the update method
         int index = Inventory.getAllProducts().indexOf(item);
 
         // save the changes to the list
@@ -235,6 +248,11 @@ public class ModifyProductFormController extends SuperController implements Init
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
+    /**
+     * Cancel method.
+     * Displays the main screen, without saving work.
+     * @throws IOException catches IO errors
+     */
     @FXML
     void onActionCancelDisplayMainScreen() throws IOException {
        displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
@@ -293,12 +311,22 @@ public class ModifyProductFormController extends SuperController implements Init
     // field for holding the passed item
     private static Product item = null;
 
-    // method for catching the passed item from main controller
+    /**
+     * Method for catching the passed part from main controller.
+     * @param selectedPart the object that was passed in
+     */
     public static void holdData(Product selectedPart) {
         item = selectedPart;
     }
 
-    ////////
+    /**
+     * Initialize Method.
+     * This method is from the interface Initializable, and is overridden here.
+     * The method is loaded(initialized) when this controller gets called.
+     * It contains the object values that were passed in and sets the label
+     * fields with those values. It also contains instructions to set
+     * TableViews with the data that they will be working with.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

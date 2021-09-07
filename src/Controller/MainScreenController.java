@@ -21,7 +21,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * The Main Screen Class displays two screens, one for parts and one for products.
+ * The Main Screen Class is the controller for the main screen.
+ * Displays two forms, one for parts and one for products.
  */
 public class MainScreenController extends SuperController implements Initializable {
 
@@ -376,7 +377,7 @@ public class MainScreenController extends SuperController implements Initializab
 
     /**
      * Initialize Method.
-     * This method is from the interface Initializable, and is overridden in here.
+     * This method is from the interface Initializable, and is overridden here.
      * The method is loaded(initialized) when this controller gets called.
      * It contains instructions to set TableViews with the data that they will be working with.
      */

@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 /**
  * The controller class for the add part form.
+ * The add part class loads a blank form for the user to enter values into.
  */
 public class AddPartFormController extends SuperController {
 
@@ -62,8 +63,8 @@ public class AddPartFormController extends SuperController {
 
     /**
      * Add Part Method.
-     * This method takes input data from the user, preforms input validation on it and
-     * then creates and adds that object to the parts list.
+     * This method takes input data from the user and preforms input validation. It
+     * then creates an object with those values and adds that object to the parts list.
      * @throws IOException catches IO errors
      */
     @FXML
@@ -87,6 +88,7 @@ public class AddPartFormController extends SuperController {
         } catch (Exception e) {
             errorAlert.setHeaderText("Name Format Error");
             errorAlert.setContentText("Please provide a part name");
+            //errorAlert.setContentText("Please provide numbers and characters only \nNo Special characters");
             errorAlert.showAndWait();
             return;
         }
@@ -146,8 +148,6 @@ public class AddPartFormController extends SuperController {
             return;
         }
 
-
-
         // Distinguish between which radio button input was selected and add part to part list
         if (inHouseRadioButton.isSelected()) {
             int machineId = 0;
@@ -177,6 +177,7 @@ public class AddPartFormController extends SuperController {
                 errorAlert.showAndWait();
                 return;
             }
+
             Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.addPart(newPart);
         }

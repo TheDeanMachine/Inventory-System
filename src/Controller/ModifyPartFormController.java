@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 /**
  * The Controller class for the modify part form.
+ * The modify part class loads the values of a previously added part and allows for modification of that part.
  */
 public class ModifyPartFormController extends SuperController implements Initializable {
 
@@ -62,8 +63,9 @@ public class ModifyPartFormController extends SuperController implements Initial
 
     /**
      * Save Part Method.
-     * This method loads input data from the user and displays it. preforms input validation on it and
-     * then creates and adds that object to the parts list.
+     * This method loads input data that the user previously entered and displays it. It allows for the user
+     * to make and save those changes to the parts list. Like the add part form this method also performs
+     * input validation on the users entries.
      * @throws IOException catches IO errors
      */
     @FXML
@@ -145,10 +147,10 @@ public class ModifyPartFormController extends SuperController implements Initial
             return;
         }
 
-        // get the items index
+        // get the items index to pass into the update method
         int index = Inventory.getAllParts().indexOf(item);
 
-        // Distinguish between which part the item belong to and add update the part
+        // Distinguish between which radio button input was selected and update the part list
         if (inHouseRadioButton.isSelected()) {
             int machineId = 0;
             // input validation
@@ -177,6 +179,7 @@ public class ModifyPartFormController extends SuperController implements Initial
                 errorAlert.showAndWait();
                 return;
             }
+
             Outsourced newPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.updatePart(index, newPart);
         }
@@ -184,17 +187,27 @@ public class ModifyPartFormController extends SuperController implements Initial
         displayNewScreen(saveButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
+    /**
+     * Cancel method.
+     * Displays the main screen, without saving work.
+     * @throws IOException catches IO errors
+     */
     @FXML
     void onActionCancelDisplayMainScreen() throws IOException {
         displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
-    //// Part form methods for toggling between machine/company label
+    /**
+     * Method for toggling between machine/company label.
+     */
     @FXML
     void onActionInHouseRadioButton(ActionEvent event) {
         machineCompanyLabel.setText("Machine ID");
     }
 
+    /**
+     * Method for toggling between machine/company label.
+     */
     @FXML
     void onActionOutsourcedRadioButton(ActionEvent event) {
         machineCompanyLabel.setText("Company Name");
@@ -203,7 +216,10 @@ public class ModifyPartFormController extends SuperController implements Initial
     // field for holding the passed item
     private static Part item = null;
 
-    // method for catching the passed part from main controller
+    /**
+     * Method for catching the passed part from main controller.
+     * @param selectedPart the object that was passed in
+     */
     public static void holdData(Part selectedPart) {
         item = selectedPart;
     }
@@ -213,13 +229,17 @@ public class ModifyPartFormController extends SuperController implements Initial
      * The issue in this method was getting the last item in the object, machine/company.
      * The problem was the abstract Part form method could not be changed to add a getter
      * and the InHouse class has only non-static methods, which I could not use here.
-     * The solution was type casting the item(Part) object as an InHouse object
+     * The solution was type casting the item(Part) object as an InHouse/Outsourced object
      * and calling its getter method.
-     *
-     * @param url
-     * @param resourceBundle
      */
 
+    /**
+     * Initialize Method.
+     * This method is from the interface Initializable, and is overridden here.
+     * The method is loaded(initialized) when this controller gets called.
+     * It contains the object values that were passed in and sets the label
+     * fields with those values.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
