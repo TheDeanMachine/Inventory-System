@@ -102,8 +102,8 @@ public class MainScreenController extends SuperController implements Initializab
 
     /**
      * Part Search method.
-     * Gets the users input and then searches by id. If it doesn't find it by id it searches by name.
-     * If it finds the part by id, it highlights the item, if it finds by name then
+     * Gets the users input and then searches by id. If it doesn't find it by id it then searches by name.
+     * If it finds the part by id, it highlights the item, if it finds the part by name then
      * it displays a list of found parts, else display a not found message.
      */
     @FXML
@@ -152,8 +152,8 @@ public class MainScreenController extends SuperController implements Initializab
 
     /**
      * Products Search method.
-     * Gets the users input and then searches by id. If it doesn't find it by id it searches by name.
-     * If it finds the product by id, it highlights the item, if it finds by name then
+     * Gets the users input and then searches by id. If it doesn't find it by id it then searches by name.
+     * If it finds the product by id, it highlights the item, if it finds the product by name then
      * it displays a list of found products, else display a not found message.
      */
     @FXML
@@ -206,8 +206,8 @@ public class MainScreenController extends SuperController implements Initializab
 
     /**
      * Delete Part Method.
-     * Once the user selects an item to delete the method deletes the item, but first displays
-     * a confirmation message asking the user if they want to delete this part.
+     * Once the user selects an item to delete the method deletes the item, but it first displays
+     * a confirmation message asking the user if they want to delete this part, with the option to cancel.
      */
     @FXML
     void onActionDeletePart(ActionEvent event) {
@@ -240,7 +240,7 @@ public class MainScreenController extends SuperController implements Initializab
 
     /**
      * RUNTIME ERROR.
-     * Had issues with passing the selected part object to the part from controller
+     * Had issues with passing the selected part object to the part from controller.
      * There were a few solutions, including adding an overloaded method to the
      * super controller, which did get the item into the part form controller.
      * However, I could not populate the form field with data on load.
@@ -251,6 +251,8 @@ public class MainScreenController extends SuperController implements Initializab
 
     /**
      * Modify Part Method.
+     * Once the user selects an item to modify, the modify part screen loads with the data
+     * for that object populated in the text fields.
      *
      * @throws IOException catches IO errors.
      */
@@ -274,6 +276,11 @@ public class MainScreenController extends SuperController implements Initializab
         displayNewScreen(modifyPartButton, "/View/ModifyPartForm.fxml", "Modify Part Form");
     }
 
+    /**
+     * Add Part Method.
+     * The method displays the add part form.
+     * @throws IOException catches IO errors.
+     */
     @FXML
     void onActionDisplayAddPartForm() throws IOException {
         displayNewScreen(addPartButton, "/View/AddPartForm.fxml", "Add Part Form");
@@ -281,6 +288,14 @@ public class MainScreenController extends SuperController implements Initializab
 
 
     //// Product Screen Methods ////
+
+    /**
+     * Delete Product Method.
+     * Once the user selects an item to delete the method deletes the item, but it first displays
+     * a confirmation message asking the user if they want to delete this product, with the option to cancel.
+     * Also preforms a check if the product contains any associated parts, if it finds any it will prevent the user
+     * from deleting that product, until they have disassociated those parts.
+     */
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
         // if the user selects the delete product button without selecting an item, display an alert box
@@ -322,6 +337,13 @@ public class MainScreenController extends SuperController implements Initializab
         }
     }
 
+    /**
+     * Modify Product Method.
+     * Once the user selects an item to modify, the modify product screen loads with the data
+     * for that object populated in the text fields.
+     *
+     * @throws IOException catches IO errors.
+     */
     @FXML
     void onActionDisplayModifyProductForm() throws IOException {
         // if the user selects the modify product button, without selecting an item display an alert box
@@ -342,12 +364,22 @@ public class MainScreenController extends SuperController implements Initializab
         displayNewScreen(modifyProductButton, "/View/ModifyProductForm.fxml", "Product Form");
     }
 
+    /**
+     * Add Product Method.
+     * The method displays the add product form.
+     * @throws IOException catches IO errors.
+     */
     @FXML
     void onActionDisplayAddProductForm() throws IOException {
        displayNewScreen(addProductButton, "/View/AddProductForm.fxml", "Product Form");
     }
 
-    /// Initialize method
+    /**
+     * Initialize Method.
+     * This method is from the interface Initializable, and is overridden in here.
+     * The method is loaded(initialized) when this controller gets called.
+     * It contains instructions to set TableViews with the data that they will be working with.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

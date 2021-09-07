@@ -11,8 +11,10 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-public class AddPartFormController extends SuperController implements Initializable {
+/**
+ * The controller class for the add part form.
+ */
+public class AddPartFormController extends SuperController {
 
     /// Part Form Text Fields fx:id ///
     @FXML
@@ -57,11 +59,13 @@ public class AddPartFormController extends SuperController implements Initializa
     @FXML
     public Button addInventoryButton;
 
-    public AddPartFormController() throws FileNotFoundException {
-    }
 
-
-    //// Part form methods ////
+    /**
+     * Add Part Method.
+     * This method takes input data from the user, preforms input validation on it and
+     * then creates and adds that object to the parts list.
+     * @throws IOException catches IO errors
+     */
     @FXML
     void onActionAddDisplayMainScreen() throws IOException {
 
@@ -181,27 +185,31 @@ public class AddPartFormController extends SuperController implements Initializa
         displayNewScreen(addInventoryButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
+    /**
+     * Cancel method.
+     * Displays the main screen, without saving work.
+     * @throws IOException catches IO errors
+     */
     @FXML
     void onActionCancelDisplayMainScreen() throws IOException {
         displayNewScreen(cancelButton, "/View/MainScreen.fxml", "Main Screen");
     }
 
-    //// Part form methods for toggling between machine/company label
+    /**
+     * Method for toggling between machine/company label.
+     */
     @FXML
     void onActionInHouseRadioButton(ActionEvent event) {
         machineCompanyLabel.setText("Machine ID");
     }
 
+    /**
+     * Method for toggling between machine/company label.
+     */
     @FXML
     void onActionOutsourcedRadioButton(ActionEvent event) {
         machineCompanyLabel.setText("Company Name");
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-      //generateID();
-
-    }
 }
 
