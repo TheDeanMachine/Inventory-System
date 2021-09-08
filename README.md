@@ -75,10 +75,10 @@ Note: data for this application is nonpersistent and will reside in computer mem
 ---------
 
 ### Input validation and logical error checks using a dialog box 
-- Min should be less than Max; and Inv should be between those two values.
+- Min should be less than Max, and Inventory should be between those two values.
 - The user should not delete a product that has a part associated with it.
 - The application confirms the “Delete” and “Remove” actions.
-- The application will not crash when inappropriate user data is entered in the forms; instead, error messages should be generated.
+- The application will not crash when inappropriate user data is entered in the forms.
 
 
 
