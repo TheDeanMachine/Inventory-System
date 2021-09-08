@@ -150,7 +150,7 @@ public class ModifyPartFormController extends SuperController implements Initial
         int index = Inventory.getAllParts().indexOf(item);
 
         // Distinguish between which radio button input was selected and update the part list
-        if (inHouseRadioButton.isSelected()) {
+        if (item instanceof InHouse) {
             int machineId = 0;
             // input validation
             try {
@@ -224,15 +224,6 @@ public class ModifyPartFormController extends SuperController implements Initial
     }
 
     /**
-     * LOGICAL ERROR.
-     * The issue in this method was getting the last item in the object, machine/company.
-     * The problem was the abstract Part form method could not be changed to add a getter
-     * and the InHouse class has only non-static methods, which I could not use here.
-     * The solution was type casting the item(Part) object as an InHouse/Outsourced object
-     * and calling its getter method.
-     */
-
-    /**
      * Initialize Method.
      * This method is from the interface Initializable, and is overridden here.
      * The method is loaded(initialized) when this controller gets called.
@@ -253,12 +244,12 @@ public class ModifyPartFormController extends SuperController implements Initial
         if (item instanceof InHouse) {
             machineCompanyTxt.setText(String.valueOf(((InHouse)item).getMachineId()));
             inHouseRadioButton.setSelected(true);
-            //outSourcedRadioButton.setDisable(true);
+            outSourcedRadioButton.setDisable(true);
             machineCompanyLabel.setText("Machine ID");
         } else {
             machineCompanyTxt.setText(String.valueOf(((Outsourced)item).getCompanyName()));
             outSourcedRadioButton.setSelected(true);
-            //inHouseRadioButton.setDisable(true);
+            inHouseRadioButton.setDisable(true);
             machineCompanyLabel.setText("Company Name");
         }
     }

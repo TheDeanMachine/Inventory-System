@@ -89,7 +89,7 @@ public class AddProductFormController extends SuperController implements Initial
 
     /**
      * FUTURE ENHANCEMENT.
-     * Provides a brief description of producy
+     * Provides a brief description of product
      */
     @FXML
     private TextArea productTxtArea;

@@ -237,17 +237,6 @@ public class MainScreenController extends SuperController implements Initializab
     }
 
     /**
-     * RUNTIME ERROR.
-     * Had issues with passing the selected part object to the part from controller.
-     * There were a few solutions, including adding an overloaded method to the
-     * super controller, which did get the item into the part form controller.
-     * However, I could not populate the form field with data on load.
-     * The next solution was to create a static method in the part form controller
-     * and then pass the item to it, that way on initialize I could populate the
-     * form with the data.
-     */
-
-    /**
      * Modify Part Method.
      * Once the user selects an item to modify, the modify part screen loads with the data
      * for that object populated in the text fields.
