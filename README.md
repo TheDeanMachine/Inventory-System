@@ -83,3 +83,6 @@ Note: data for this application is nonpersistent and will reside in computer mem
 
 
 
+### Quick demonstration 
+
+<img src="https://github.com/TheDeanMachine/Inventory-System/blob/Main/Animation2.gif"/>
